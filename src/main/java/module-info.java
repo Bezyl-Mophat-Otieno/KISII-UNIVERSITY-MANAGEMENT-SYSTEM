@@ -11,5 +11,6 @@ module com.system.kisii_university_management_system {
     requires  pdfa;
     requires forms;
     requires kernel;
+    requires io;
     exports com.system.kisii_university_management_system;
 }
