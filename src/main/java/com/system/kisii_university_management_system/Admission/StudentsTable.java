@@ -1,4 +1,4 @@
-package com.system.kisii_university_management_system.Enrollment;
+package com.example.studentregistrationsystem.Admission;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

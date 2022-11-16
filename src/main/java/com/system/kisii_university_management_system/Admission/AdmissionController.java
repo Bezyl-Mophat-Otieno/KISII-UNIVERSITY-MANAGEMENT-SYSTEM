@@ -1,7 +1,6 @@
-package com.system.kisii_university_management_system.Enrollment;
+package com.system.kisii_university_management_system.Admission;
 
-import com.system.kisii_university_management_system.database.DBConnection1;
-import com.system.kisii_university_management_system.database.DBConnection1;
+import com.system.kisii_university_management_system.Enrollment.StudentsTable;
 import com.system.kisii_university_management_system.database.DBConnection1;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,11 +29,11 @@ import java.util.ResourceBundle;
 import static java.lang.Integer.parseInt;
 
 
-public class EnrollmentController implements Initializable {
+public class AdmissionController implements Initializable {
     private final DBConnection1 database = new DBConnection1();
     private boolean isNewButtonClicked;
     private  boolean isEditButtonClicked;
-    private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+//    private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
     private final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     private final Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
     private ResultSet result;
@@ -77,65 +76,107 @@ public class EnrollmentController implements Initializable {
     @FXML
     private TextField fieldSearch;
     @FXML
-    private TextField fieldCheckStatus;
-    @FXML
     private Label lblAdmissionsID;
     @FXML
     private Label lblAdmissionsName;
 
+    public void setAdd(){
+        setAllEnable();
+        isNewButtonClicked = true;
+    }
+
     //Save button functionality
     public void save() throws SQLException {
-        if(isEditButtonClicked){
+        if(isNewButtonClicked){
+            registerStudent();
+        }
+        else if(isEditButtonClicked){
             updateStudent();
         }
     }
-
+    //register Student
+    public void registerStudent() throws SQLException {
+        if(!checkFieldsEmpty()){
+            Connection connection = database.getConnection();
+            Statement statement = connection.createStatement();
+            sqlQuery = "Insert into students values('"+fieldStdID.getText()+"','"+fieldStdName.getText()+"'," +
+                "'"+fieldStdEmail.getText()+"','"+fieldStdPassword.getText()+"'," +
+                "'"+fieldStdCourse.getSelectionModel().getSelectedItem()+"','"+ parseInt(fieldYearOfStudy.getText())+"',"
+                + "'"+fieldStatus.getSelectionModel().getSelectedItem()+"');";
+            String sqlQueryInsert = "Insert into `graduationEligible` values('"+fieldStdID.getText()+"','No')";
+            int resultInsert = statement.executeUpdate(sqlQueryInsert);
+            int result = statement.executeUpdate(sqlQuery);
+            if(result == 1 && resultInsert == 1){
+                informationAlert.setContentText("Student Added Successfully!");
+                informationAlert.show();
+            }
+            else{
+                errorAlert.setHeaderText("Error encountered!");
+                errorAlert.show();
+            }
+        }
+        else{
+            errorAlert.setContentText("All fields are required!");
+            errorAlert.show();
+        }
+        isNewButtonClicked = true;
+        isEditButtonClicked = false;
+    }
 
     //Update Student Information
 
     public void updateStudent() throws SQLException{
-        if (checkFieldsEmpty()){
-            errorAlert.setContentText("All fields are required");
+        sqlQuery ="Update students set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
+            "Std_Email='"+fieldStdEmail.getText()+"',Password='"+fieldStdPassword.getText()+"'," +
+            "Course='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
+            "YOS='"+ parseInt(fieldYearOfStudy.getText())+"',"
+            + "Status='"+fieldStatus.getSelectionModel().getSelectedItem()+"' " +
+                "where Std_ID='"+fieldStdID.getText()+"';";
+
+        int result =  database.getConnection().createStatement().executeUpdate(sqlQuery);
+        if(result == 1){
+            informationAlert.setContentText("Student Updated Successfully");
+            informationAlert.setHeaderText("Success");
+            informationAlert.show();
+            isEditButtonClicked = true;
+            isNewButtonClicked = false;
+        }
+        else {
+            errorAlert.setContentText("Error has occurred");
             errorAlert.show();
         }
-        else{
-            sqlQuery ="Update students set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
-                    "Std_Email='"+fieldStdEmail.getText()+"',Password='"+fieldStdPassword.getText()+"'," +
-                    "Course='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
-                    "YOS='"+ parseInt(fieldYearOfStudy.getText())+"',"
-                    + "Status='"+fieldStatus.getSelectionModel().getSelectedItem()+"' " +
-                    "where Std_ID='"+fieldStdID.getText()+"';";
+        clearAll();
+    }
 
-            int result =  database.getConnection().createStatement().executeUpdate(sqlQuery);
-            if(result == 1){
-                informationAlert.setContentText("Student Updated Successfully");
-                informationAlert.setHeaderText("Success");
-                informationAlert.show();
-                clearAll();
-                setAllDisable();
-                stdTableView.setItems(getStudents(null));
-                isEditButtonClicked = true;
-                isNewButtonClicked = false;
-            }
-            else {
-                errorAlert.setContentText("Error has occurred");
-                errorAlert.show();
-            }
+    //Deleting Student Information
+    public void deleteStudent() throws SQLException {
+        StudentsTable stdTable = stdTableView.getSelectionModel().getSelectedItem();
+
+        if(stdTable == null){
+            informationAlert.setContentText("Kindly select a record to delete!");
+            informationAlert.show();
         }
+        else{
+            sqlQuery = "Delete from students where Std_ID= '"+stdTable.getId()+"';";
+
+            database.getConnection().createStatement().executeUpdate(sqlQuery);
+            stdTableView.setItems(getStudents(null));
+        }
+        assert stdTable != null;
 
     }
 
     //Editing Student Information
     public void editStudent() throws SQLException{
+        isNewButtonClicked = false;
+        isEditButtonClicked = true;
         StudentsTable stdTable = stdTableView.getSelectionModel().getSelectedItem();
         if(stdTable == null){
-            informationAlert.setContentText("Kindly select a record to Update!");
+            informationAlert.setContentText("Kindly select a record to Edit!");
             informationAlert.show();
         }
         else{
-
             setAllEnable();
-
             sqlQuery = "Select * from students where Std_ID='"+stdTable.getId()+"';";
 
             result = database.getConnection().createStatement().executeQuery(sqlQuery);
@@ -150,6 +191,7 @@ public class EnrollmentController implements Initializable {
             fieldStatus.setValue(result.getString("Status"));
             }
             isEditButtonClicked = true;
+            clearAll();
         }
     }
 
@@ -167,14 +209,6 @@ public class EnrollmentController implements Initializable {
         else{
             informationAlert.setContentText("No Student Found!");
             informationAlert.show();
-        }
-    }
-    //Get Dropped Out Students
-    public void droppedOut(ActionEvent event) throws SQLException{
-        sqlQuery = "Select * from students where Status='dropped-out';";
-        result = database.getConnection().createStatement().executeQuery(sqlQuery);
-        if(result.next()){
-            stdTableView.setItems(getStudents(sqlQuery));
         }
     }
     public void cancel(){
@@ -210,16 +244,6 @@ public class EnrollmentController implements Initializable {
         saveBtn.setDisable(false);
         deleteBtn.setDisable(false);
     }
-    public void clearAll(){
-        fieldStdID.setText("");
-        fieldStdName.setText("");
-        fieldStdEmail.setText("");
-        fieldStdPassword.setText("");
-        fieldStdCourse.setValue("Courses");
-        fieldYearOfStudy.setText("");
-        fieldStatus.setValue("Status");
-    }
-
 
     private void setAllDisable() {
         fieldStdID.setDisable(true);
@@ -232,6 +256,15 @@ public class EnrollmentController implements Initializable {
         saveBtn.setDisable(true);
         deleteBtn.setDisable(true);
 
+    }
+    public void clearAll(){
+        fieldStdID.setText("");
+        fieldStdName.setText("");
+        fieldStdEmail.setText("");
+        fieldStdPassword.setText("");
+        fieldStdCourse.setValue("Courses");
+        fieldYearOfStudy.setText("");
+        fieldStatus.setValue("Status");
     }
 
     public ObservableList<String>  getStatus() throws SQLException{
@@ -261,8 +294,8 @@ public class EnrollmentController implements Initializable {
         try {
             fieldStdCourse.setItems(getCourses());
             fieldStatus.setItems(getStatus());
-            lblAdmissionsID.setText(getEnrollmentDetails().get(0));
-            lblAdmissionsName.setText(getEnrollmentDetails().get(1));
+            lblAdmissionsID.setText(getAdmissionDetails().get(0));
+            lblAdmissionsName.setText(getAdmissionDetails().get(1));
             setAllDisable();
             getStudents(null);
             StdTable();
@@ -323,9 +356,9 @@ public class EnrollmentController implements Initializable {
 
     }
 
-    public ArrayList<String> getEnrollmentDetails() throws SQLException{
-        String id = "ENR-001";
-        sqlQuery = "Select ID, Name from enrollment where ID='"+id+"';";
+    public ArrayList<String> getAdmissionDetails() throws SQLException{
+        String id = "ADM-001";
+        sqlQuery = "Select ID, Name from admissions where ID='"+id+"';";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
         ArrayList<String> admDetails = new ArrayList<>();
         while (result.next()){
@@ -335,107 +368,6 @@ public class EnrollmentController implements Initializable {
         return admDetails;
     }
 
-    public void checkStatus(ActionEvent event) throws SQLException {
-        if(fieldCheckStatus.getText().isEmpty()){
-            informationAlert.setContentText("Kindly Enter Student ID!");
-            informationAlert.show();
-        }
-        else{
-            String sqlQueryStudent = "Select Std_ID, Status from students where Std_ID='"+fieldCheckStatus.getText()+"';";
-            result = database.getConnection().createStatement().executeQuery(sqlQueryStudent);
-            if(!result.next()){
-                errorAlert.setContentText("No Student Found With That ID!");
-                errorAlert.show();
-            }
-            else{
-                String isActive = result.getString("Status");
-                if(isActive.equals("inactive") || isActive.equals("dropped-out")){
-                    errorAlert.setContentText("Student is Inactive or Is Dropped Out!");
-                    errorAlert.setTitle("Student Eligibility");
-                    errorAlert.setHeaderText("Inactive Or Dropped Out");
-                    errorAlert.show();
-                }
-                else{
-                    String sqlQueryNumberOfUnitResults = "Select count(GPA) as TotalUnits from unitresults " +
-                            "where Std_ID='"+fieldCheckStatus.getText()+"';";
-                    ResultSet resultNumberOfUnitsResults = database.getConnection().createStatement()
-                            .executeQuery(sqlQueryNumberOfUnitResults);
-                    if(resultNumberOfUnitsResults.next()){
-                        int TotalUnits = resultNumberOfUnitsResults.getInt("TotalUnits");
-                        if(TotalUnits == 0){
-                            informationAlert.setContentText("The Student Is Not Eligible For Graduation!");
-                            informationAlert.setHeaderText("No Marks Found!");
-                            informationAlert.show();
-
-                        }
-                        else{
-                            String sqlQueryNumberOfUnits = "Select count(unitCode) as TotalCourseUnits from courseunits " +
-                                    "where courseID=(Select courseID from courses where courseID=(Select Course " +
-                                    "from students where Std_ID='"+fieldCheckStatus.getText()+"'));";
-                            ResultSet resultSetNumberOfUnits = database.getConnection().createStatement()
-                                    .executeQuery(sqlQueryNumberOfUnits);
-                            if(resultSetNumberOfUnits.next()){
-                                int TotalCourseUnits = resultSetNumberOfUnits.getInt("TotalCourseUnits");
-                                if (!(TotalUnits == TotalCourseUnits)){
-                                    informationAlert.setContentText("The Student Is Not Eligible For Graduation!");
-                                    informationAlert.setHeaderText("No All Marks Entered For Student!");
-                                    informationAlert.show();
-                                }
-                                else{
-                                    ResultSet feeresult = database.getConnection().createStatement()
-                                            .executeQuery("Select feeAmount from billstatement where Std_ID=" +
-                                                    "'"+fieldStdID.getText()+"'");
-                                    if(!feeresult.next()){
-                                        informationAlert.setContentText("The Student Is Not Eligible For Graduation!");
-                                        informationAlert.setHeaderText("No Fee Amount Found!");
-                                        informationAlert.setResizable(false);
-                                        informationAlert.show();
-                                    }
-                                    else{
-                                        double feeAmount = feeresult.getDouble("feeAmount");
-                                        if(feeAmount == 0.0){
-                                            confirmationAlert.setTitle("Student Eligiblity");
-                                            confirmationAlert.setContentText("The Student Is Eligible For Graduation!");
-                                            confirmationAlert.setHeaderText("Student Can Graduate!");
-                                            confirmationAlert.setResizable(false);
-                                            confirmationAlert.show();
-                                        }
-                                        else{
-                                            informationAlert.setContentText("The Student Is Not Eligible For Graduation!");
-                                            informationAlert.setHeaderText("All Fee Amount Must Be Cleared!");
-                                            informationAlert.setResizable(false);
-                                            informationAlert.show();
-                                            database.getConnection().createStatement().
-                                                    executeUpdate("Update graduationEligible set isEligible='Yes' " +
-                                                            "where Std_ID='"+fieldCheckStatus.getText()+"'");
-                                        }
-                                    }
-                                }
-                            }
-                            System.out.println();
-                            //            sqlQuery = "Select * from students where Std_ID LIKE'%"+fieldSearch.getText()+"%';";
-                            //            result = database.getConnection().createStatement().executeQuery(sqlQuery);
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public void getListOfGraduants(ActionEvent event) throws SQLException {
-        sqlQuery = "Select Std_ID, Std_Name, Std_Email, Course,Password, YOS,Status from students where Std_ID=" +
-                "(Select Std_ID from graduationEligible where isEligible='Yes');";
-        result = database.getConnection().createStatement().executeQuery(sqlQuery);
-        if(!result.next()){
-            informationAlert.setContentText("No List Of Graduants To Be Displayed!");
-            informationAlert.show();
-        }
-        else{
-            stdTableView.setItems(getStudents(sqlQuery));
-
-        }
-    }
 
     @FXML
     public Button logoutBtn;

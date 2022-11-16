@@ -1,4 +1,4 @@
-package com.example.studentregistrationsystem.Enrollment;
+package com.system.kisii_university_management_system.Admission;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Enrollment extends  Application{
+public class Admission extends  Application{
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Enrollment.class.getResource(
-                "enrollment.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Admission.class.getResource(
+                "/com/example/studentregistrationsystem/admission/admission.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();

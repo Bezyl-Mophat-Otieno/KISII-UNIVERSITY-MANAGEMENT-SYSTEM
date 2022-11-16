@@ -1,7 +1,7 @@
 package com.system.kisii_university_management_system.Bursar;
 
-import com.example.studentregistrationsystem.database.DBConnection1;
-import com.example.studentregistrationsystem.database.DBConnection1;
+import com.system.kisii_university_management_system.database.DBConnection1;
+import com.system.kisii_university_management_system.database.DBConnection1;
 import  com.system.kisii_university_management_system.Bursar.FeeTable;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -386,6 +386,27 @@ public class BursarController implements Initializable {
                 }
             }
 
+        }
+    }
+
+    @FXML
+    public Button logoutBtn;
+
+    @FXML
+    public void logoutBtnOnClick1(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("You are about to log out ");
+        alert.setContentText("Are you sure you want to Log-Out ");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppLogin.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
         }
     }
 

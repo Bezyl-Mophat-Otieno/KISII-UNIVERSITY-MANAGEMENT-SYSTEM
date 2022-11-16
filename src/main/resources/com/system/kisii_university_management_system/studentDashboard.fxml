@@ -75,7 +75,6 @@
                   </Label>
                   <Button fx:id="viewTranscriptBtn" layoutX="148.0" layoutY="164.0" mnemonicParsing="false" onAction="#viewTranscriptBtnOnClick" prefHeight="24.0" prefWidth="152.0" text="View Transcript" />
                   <Button fx:id="unitStatusBtn" layoutX="149.0" layoutY="220.0" mnemonicParsing="false" onAction="#unitStatusBtnOnClick" prefHeight="24.0" prefWidth="149.0" text="Check Unit Status" />
-                  <Button fx:id="viewCurricullumBtn" layoutX="147.0" layoutY="272.0" mnemonicParsing="false" onAction="#viewCurricullumBtnOnClick" prefHeight="24.0" prefWidth="154.0" text="View Curricullum" />
                </children>
             </AnchorPane>
                </children>
