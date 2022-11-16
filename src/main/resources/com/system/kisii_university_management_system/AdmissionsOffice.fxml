@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="admissionsBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.AdmissionsOffice">
+   <center>
+      <AnchorPane prefHeight="900.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="479.0" layoutY="375.0" prefHeight="16.0" prefWidth="62.0" text="Course" />
+            <Label layoutX="105.0" layoutY="445.0" text="YOS" />
+            <Label layoutX="471.0" layoutY="281.0" text="Student ID" />
+            <Label layoutX="59.0" layoutY="375.0" prefHeight="16.0" prefWidth="119.0" text="Student Email" />
+            <Label layoutX="63.0" layoutY="281.0" prefHeight="16.0" prefWidth="111.0" text="Studet Name" />
+            <Label layoutX="483.0" layoutY="445.0" prefHeight="16.0" prefWidth="55.0" text="Status" />
+            <TextField fx:id="Std_NameTxtField" layoutX="204.0" layoutY="277.0" />
+            <TextField fx:id="Std_EmailTxtField" layoutX="204.0" layoutY="371.0" />
+            <TextField fx:id="YOSTxtField" layoutX="204.0" layoutY="441.0" />
+            <TextField fx:id="Std_IDTxtField" layoutX="566.0" layoutY="277.0" />
+            <TextField fx:id="CourseTxtField" layoutX="566.0" layoutY="371.0" />
+            <TextField fx:id="StatusTxtField" layoutX="566.0" layoutY="441.0" />
+            <Button fx:id="stdRegisterBtn" layoutX="407.0" layoutY="624.0" mnemonicParsing="false" onAction="#stdRegisterBtnOnClick" prefHeight="31.0" prefWidth="103.0" style="-fx-background-color: #045004;" text="REGISTER" textFill="#f2ebeb" />
+            <AnchorPane layoutX="865.0" layoutY="-13.0" prefHeight="919.0" prefWidth="540.0" style="-fx-background-color: black;">
+               <children>
+                  <Label layoutX="185.0" layoutY="89.0" prefHeight="29.0" prefWidth="291.0" text="ADMISSIONS DASHBOARD" textAlignment="CENTER" textFill="#fffafa">
+                     <font>
+                        <Font name="DejaVu Sans Mono Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <Line endX="413.0" layoutX="210.0" layoutY="145.0" startX="-210.0" stroke="#fcf5f5" />
+                  <Button fx:id="logoutBtn" layoutX="345.0" layoutY="37.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #7d0808;" text="Log-Out" textFill="#fff8f8" />
+                  <Circle fill="#1b1d1e" layoutX="345.0" layoutY="339.0" radius="119.0" stroke="#eeeaea" strokeType="INSIDE">
+                     <effect>
+                        <DropShadow height="222.63" radius="111.555" spread="0.53" width="225.59">
+                           <color>
+                              <Color red="0.1315789520740509" green="0.12914229929447174" blue="0.12914229929447174" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Circle>
+                  <Label layoutX="248.0" layoutY="328.0" text="KISII UNIVERSITY" textFill="#fffdfd">
+                     <font>
+                        <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
+                     </font></Label>
+               </children>
+            </AnchorPane>
+            <TextField fx:id="searchTxtField" layoutX="348.0" layoutY="139.0" prefHeight="40.0" prefWidth="171.0" promptText="Enter Student ID" />
+            <Label layoutX="227.0" layoutY="151.0" prefHeight="16.0" prefWidth="87.0" text="Search">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="Std_PasswordTxtField" layoutX="386.0" layoutY="521.0" prefHeight="24.0" prefWidth="129.0" promptText="Default Password" />
+            <Label layoutX="271.0" layoutY="525.0" text="Password" />
+            <Label fx:id="frontEndErrorAlert" alignment="CENTER" layoutY="55.0" prefHeight="16.0" prefWidth="780.0" textFill="#cd1010">
+               <font>
+                  <Font name="Abyssinica SIL" size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="searchBtn" layoutX="549.0" layoutY="144.0" mnemonicParsing="false" onAction="#searchBtnOnClick" prefHeight="31.0" prefWidth="96.0" style="-fx-background-color: #045004;" text="SEARCH" textFill="#f5f0f0" />
+            <Label layoutX="338.0" layoutY="55.0" text="Students Registration">
+               <font>
+                  <Font name="DejaVu Sans Mono Bold" size="19.0" />
+               </font>
+            </Label>
+            <Line endX="121.0" layoutX="457.0" layoutY="80.0" startX="-118.0" />
+            <Label fx:id="searchAlert" alignment="CENTER" contentDisplay="CENTER" layoutX="46.0" layoutY="96.0" prefHeight="16.0" prefWidth="715.0" textFill="#c31717" />
+            <Label layoutX="203.0" layoutY="395.0" prefHeight="16.0" prefWidth="272.0" />
+            <Label fx:id="nameErrorAlert" layoutX="204.0" layoutY="304.0" prefHeight="16.0" prefWidth="270.0" />
+            <Label fx:id="courseErrorAlert" layoutX="566.0" layoutY="395.0" prefHeight="16.0" prefWidth="245.0" />
+            <Label fx:id="yosErrorAlert" layoutX="209.0" layoutY="473.0" prefHeight="16.0" prefWidth="279.0" />
+            <Label fx:id="statusErrorAlert" layoutX="566.0" layoutY="465.0" prefHeight="16.0" prefWidth="238.0" />
+            <Label fx:id="idErrorAlert" layoutX="566.0" layoutY="304.0" prefHeight="16.0" prefWidth="236.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
