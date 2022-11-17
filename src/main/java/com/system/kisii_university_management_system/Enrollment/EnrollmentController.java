@@ -1,12 +1,6 @@
 package com.system.kisii_university_management_system.Enrollment;
 
-<<<<<<< HEAD
 import com.system.kisii_university_management_system.database.DBConnection;
-=======
-import com.system.kisii_university_management_system.database.DBConnection1;
-import com.system.kisii_university_management_system.database.DBConnection1;
-import com.system.kisii_university_management_system.database.DBConnection1;
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -35,12 +28,7 @@ import static java.lang.Integer.parseInt;
 
 
 public class EnrollmentController implements Initializable {
-<<<<<<< HEAD
     private final DBConnection database = new DBConnection();
-=======
-    private final DBConnection1 database = new DBConnection1();
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
-    private boolean isNewButtonClicked;
     private  boolean isEditButtonClicked;
     private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
     private final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -91,6 +79,8 @@ public class EnrollmentController implements Initializable {
     @FXML
     private Label lblAdmissionsName;
 
+//    public boolean isNewButtonClicked;
+
     //Save button functionality
     public void save() throws SQLException {
         if(isEditButtonClicked){
@@ -107,7 +97,7 @@ public class EnrollmentController implements Initializable {
             errorAlert.show();
         }
         else{
-            sqlQuery ="Update students set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
+            sqlQuery ="Update Student set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
                     "Std_Email='"+fieldStdEmail.getText()+"',Password='"+fieldStdPassword.getText()+"'," +
                     "Course='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
                     "YOS='"+ parseInt(fieldYearOfStudy.getText())+"',"
@@ -123,7 +113,7 @@ public class EnrollmentController implements Initializable {
                 setAllDisable();
                 stdTableView.setItems(getStudents(null));
                 isEditButtonClicked = true;
-                isNewButtonClicked = false;
+                boolean isNewButtonClicked = false;
             }
             else {
                 errorAlert.setContentText("Error has occurred");
@@ -144,7 +134,7 @@ public class EnrollmentController implements Initializable {
 
             setAllEnable();
 
-            sqlQuery = "Select * from students where Std_ID='"+stdTable.getId()+"';";
+            sqlQuery = "Select * from Student where Std_ID='"+stdTable.getId()+"';";
 
             result = database.getConnection().createStatement().executeQuery(sqlQuery);
             while (result.next()){
@@ -167,7 +157,7 @@ public class EnrollmentController implements Initializable {
             informationAlert.setContentText("Kindly Enter Student ID!");
             informationAlert.show();
         }
-        sqlQuery = "Select * from students where Std_ID LIKE'%"+fieldSearch.getText()+"%';";
+        sqlQuery = "Select * from Student where Std_ID LIKE'%"+fieldSearch.getText()+"%';";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
         if(result.next()){
             stdTableView.setItems(getStudents(sqlQuery));
@@ -178,8 +168,8 @@ public class EnrollmentController implements Initializable {
         }
     }
     //Get Dropped Out Students
-    public void droppedOut(ActionEvent event) throws SQLException{
-        sqlQuery = "Select * from students where Status='dropped-out';";
+    public void droppedOut() throws SQLException{
+        sqlQuery = "Select * from Student where Status='dropped-out';";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
         if(result.next()){
             stdTableView.setItems(getStudents(sqlQuery));
@@ -199,7 +189,7 @@ public class EnrollmentController implements Initializable {
     public ObservableList<String> getCourses() throws SQLException{
         Connection connection = database.getConnection();
         Statement statement = connection.createStatement();
-        String sqlQuery = "Select * from courses;";
+        String sqlQuery = "Select * from Courses;";
         ResultSet result = statement.executeQuery(sqlQuery);
         ObservableList<String> courses = FXCollections.observableArrayList();
         while (result.next()){
@@ -245,7 +235,7 @@ public class EnrollmentController implements Initializable {
     public ObservableList<String>  getStatus() throws SQLException{
         Connection connection = database.getConnection();
         Statement statement = connection.createStatement();
-        String sqlQuery = "select Distinct(Status) from students;";
+        String sqlQuery = "select Distinct(Status) from Student;";
         ResultSet result = statement.executeQuery(sqlQuery);
         ObservableList<String> courses = FXCollections.observableArrayList();
         while (result.next()){
@@ -289,7 +279,7 @@ public class EnrollmentController implements Initializable {
         }
         else{
 
-        sqlQuery = "Select * from students;";
+        sqlQuery = "Select * from Student;";
         }
         ObservableList<StudentsTable> studentTableData = FXCollections.observableArrayList();
 
@@ -320,16 +310,6 @@ public class EnrollmentController implements Initializable {
 
         stdTableView.setItems(getStudents(null));
     }
-    public void logout(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-                "/com/example/studentregistrationsystem/mainlogin/mainlogin.fxml")));
-        Stage admissionStage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-        admissionStage.close();
-
-    }
 
     public ArrayList<String> getEnrollmentDetails() throws SQLException{
         String id = "ENR-001";
@@ -343,13 +323,13 @@ public class EnrollmentController implements Initializable {
         return admDetails;
     }
 
-    public void checkStatus(ActionEvent event) throws SQLException {
+    public void checkStatus() throws SQLException {
         if(fieldCheckStatus.getText().isEmpty()){
             informationAlert.setContentText("Kindly Enter Student ID!");
             informationAlert.show();
         }
         else{
-            String sqlQueryStudent = "Select Std_ID, Status from students where Std_ID='"+fieldCheckStatus.getText()+"';";
+            String sqlQueryStudent = "Select Std_ID, Status from Student where Std_ID='"+fieldCheckStatus.getText()+"';";
             result = database.getConnection().createStatement().executeQuery(sqlQueryStudent);
             if(!result.next()){
                 errorAlert.setContentText("No Student Found With That ID!");
@@ -364,7 +344,7 @@ public class EnrollmentController implements Initializable {
                     errorAlert.show();
                 }
                 else{
-                    String sqlQueryNumberOfUnitResults = "Select count(GPA) as TotalUnits from unitresults " +
+                    String sqlQueryNumberOfUnitResults = "Select count(GPA) as TotalUnits from Unit_Results " +
                             "where Std_ID='"+fieldCheckStatus.getText()+"';";
                     ResultSet resultNumberOfUnitsResults = database.getConnection().createStatement()
                             .executeQuery(sqlQueryNumberOfUnitResults);
@@ -377,9 +357,9 @@ public class EnrollmentController implements Initializable {
 
                         }
                         else{
-                            String sqlQueryNumberOfUnits = "Select count(unitCode) as TotalCourseUnits from courseunits " +
-                                    "where courseID=(Select courseID from courses where courseID=(Select Course " +
-                                    "from students where Std_ID='"+fieldCheckStatus.getText()+"'));";
+                            String sqlQueryNumberOfUnits = "Select count(Unit_Code) as TotalCourseUnits from Course_Units " +
+                                    "where Course_ID=(Select courseID from Courses where courseID=(Select Course " +
+                                    "from Student where Std_ID='"+fieldCheckStatus.getText()+"'));";
                             ResultSet resultSetNumberOfUnits = database.getConnection().createStatement()
                                     .executeQuery(sqlQueryNumberOfUnits);
                             if(resultSetNumberOfUnits.next()){
@@ -431,24 +411,18 @@ public class EnrollmentController implements Initializable {
         }
     }
 
-    public void getListOfGraduants(ActionEvent event) throws SQLException {
-        sqlQuery = "Select Std_ID, Std_Name, Std_Email, Course,Password, YOS,Status from students where Std_ID=" +
+    public void getListOfGraduants() throws SQLException {
+        sqlQuery = "Select Std_ID, Std_Name, Std_Email, Course,Password, YOS,Status from Student where Std_ID=" +
                 "(Select Std_ID from graduationEligible where isEligible='Yes');";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
-        if(!result.next()){
+        if (!result.next()) {
             informationAlert.setContentText("No List Of Graduants To Be Displayed!");
             informationAlert.show();
-        }
-        else{
+        } else {
             stdTableView.setItems(getStudents(sqlQuery));
 
         }
     }
-
-<<<<<<< HEAD
-=======
-    @FXML
-    public Button logoutBtn;
 
     @FXML
     public void logoutBtnOnClick(ActionEvent event) throws IOException {
@@ -457,9 +431,10 @@ public class EnrollmentController implements Initializable {
         alert.setContentText("Are you sure you want to Log-Out ");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppLogin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/com/system/kisii_university_management_system/login/AppLogin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
@@ -467,7 +442,5 @@ public class EnrollmentController implements Initializable {
             newStage.show();
         }
     }
-
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 
 }

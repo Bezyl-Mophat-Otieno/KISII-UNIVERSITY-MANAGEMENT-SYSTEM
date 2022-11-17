@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.MainLogin.APPController">
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutY="-4.0" prefHeight="807.0" prefWidth="436.0" style="-fx-background-color: black;">
+               <children>
+                  <Label layoutX="51.0" layoutY="210.0" prefHeight="37.0" prefWidth="378.0" text="STUDENT MANAGEMENT SYSTEM" textFill="#fffafa">
+                     <font>
+                        <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Circle fill="#c4d5e4" layoutX="137.0" layoutY="159.0" radius="18.0" stroke="#e8e3e3" strokeType="INSIDE">
+                     <effect>
+                        <DropShadow blurType="TWO_PASS_BOX" radius="60.345" width="222.38">
+                           <color>
+                              <Color red="0.6842105388641357" green="0.6113547682762146" blue="0.6113547682762146" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Circle>
+                  <Circle blendMode="LIGHTEN" fill="#d9e1e808" layoutX="218.0" layoutY="228.0" radius="104.0" stroke="#817a9e" strokeLineCap="ROUND" strokeType="OUTSIDE">
+                     <effect>
+                        <DropShadow blurType="TWO_PASS_BOX" height="114.4" radius="57.07" spread="0.52" width="115.88">
+                           <color>
+                              <Color red="0.46052631735801697" green="0.3432626724243164" blue="0.3432626724243164" />
+                           </color>
+                        </DropShadow>
+                     </effect></Circle>
+                  <Label alignment="CENTER" layoutX="120.0" layoutY="441.0" prefHeight="0.0" prefWidth="226.0" text="Copyright.(c)2021. All rights reserved." textAlignment="CENTER" textFill="#f5eeee" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                     <font>
+                        <Font name="Gentium Basic" size="10.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow choke="0.37" height="115.88" radius="55.2175" width="106.99">
+                           <color>
+                              <Color red="0.8157894611358643" green="0.76291424036026" blue="0.76291424036026" />
+                           </color>
+                        </InnerShadow>
+                     </effect>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <TextField fx:id="IDtxtField" layoutX="619.0" layoutY="195.0" prefHeight="37.0" prefWidth="200.0" promptText="Identification Number" />
+            <Label layoutX="516.0" layoutY="205.0" prefHeight="16.0" prefWidth="36.0" text="ID" />
+            <PasswordField fx:id="passwordTxtField" layoutX="621.0" layoutY="268.0" prefHeight="37.0" prefWidth="200.0" promptText="Passowrd" />
+            <Label layoutX="510.0" layoutY="272.0" prefHeight="16.0" prefWidth="80.0" text="Password" />
+            <Button fx:id="loginBtn" layoutX="558.0" layoutY="374.0" mnemonicParsing="false" onAction="#loginBtnOnClick" prefHeight="37.0" prefWidth="88.0" style="-fx-background-color: #045004;" text="LOGIN" textFill="#f8f5f5" />
+            <Button fx:id="cancelBtn" layoutX="786.0" layoutY="368.0" mnemonicParsing="false" onAction="#cancelBtnOnclick" prefHeight="37.0" prefWidth="88.0" style="-fx-background-color: #045004;" text="CANCEL" textFill="WHITE" />
+            <Label fx:id="loginAlerts" alignment="CENTER" layoutX="450.0" layoutY="66.0" prefHeight="16.0" prefWidth="535.0" textAlignment="CENTER" textFill="#e80a0a" />
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="63.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#071c2f" height="63.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
+            <Label layoutX="685.0" layoutY="1.0" prefHeight="62.0" prefWidth="252.0" text="KISII UNIVERSITY" textAlignment="CENTER" textFill="#eeeded">
+               <font>
+                  <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

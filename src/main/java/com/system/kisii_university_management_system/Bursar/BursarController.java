@@ -1,11 +1,5 @@
 package com.system.kisii_university_management_system.Bursar;
 
-<<<<<<< HEAD
-=======
-import com.system.kisii_university_management_system.database.DBConnection1;
-import com.system.kisii_university_management_system.database.DBConnection1;
-import  com.system.kisii_university_management_system.Bursar.FeeTable;
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -13,10 +7,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.Style;
 import com.itextpdf.layout.element.Paragraph;
-<<<<<<< HEAD
 import com.system.kisii_university_management_system.database.DBConnection;
-=======
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,11 +37,7 @@ import static com.itextpdf.io.font.constants.StandardFonts.TIMES_BOLD;
 import static java.lang.Double.parseDouble;
 
 public class BursarController implements Initializable {
-<<<<<<< HEAD
     private final DBConnection database = new DBConnection();
-=======
-    private final DBConnection1 database = new DBConnection1();
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
     private boolean isNewButtonClicked;
 
     private  boolean isEditButtonClicked;
@@ -216,9 +203,9 @@ public class BursarController implements Initializable {
             informationAlert.setContentText("Kindly Enter Student ID!");
             informationAlert.show();
         }
-        sqlQuery = "Select students.Std_ID, students.Std_Name, students.Std_Email,students.Course, students.YOS," +
-            "students.Status,billstatement.feeAmount from students inner join billstatement on students.Std_ID=billstatement.Std_ID " +
-            "where billstatement.Std_ID LIKE '%"+fieldStdID.getText()+"%';";
+        sqlQuery = "Select Student.Std_ID, Student.Std_Name, Student.Std_Email,Student.Course, Student.YOS," +
+            "Student.Status,billstatement.feeAmount from students inner join billstatement on " +
+            "Student.Std_ID=billstatement.Std_ID where billstatement.Std_ID LIKE '%"+fieldStdID.getText()+"%';";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
         if(result.next()){
             feeTableView.setItems(getFeeStatement(sqlQuery));
@@ -285,8 +272,9 @@ public class BursarController implements Initializable {
         }
         else{
 
-        sqlQuery = "Select students.Std_ID, students.Std_Name, students.Std_Email,students.Course, students.YOS," +
-                "students.Status,billstatement.feeAmount from students inner join billstatement on students.Std_ID=billstatement.Std_ID";
+        sqlQuery = "Select Student.Std_ID, students.Std_Name, Student.Std_Email,students.Course, students.YOS," +
+                "Student.Status,billstatement.feeAmount from Student inner join billstatement on " +
+                "Student.Std_ID=billstatement.Std_ID";
 
         }
         ObservableList<FeeTable> feeTableData = FXCollections.observableArrayList();
@@ -316,16 +304,6 @@ public class BursarController implements Initializable {
         colFeeAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
        feeTableView.setItems(getFeeStatement(null));
-    }
-    public void logout(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-                "/com/example/studentregistrationsystem/mainlogin/mainlogin.fxml")));
-        Stage admissionStage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-        admissionStage.close();
-
     }
 
     public ArrayList<String> getBursarDetails() throws SQLException{
@@ -400,21 +378,20 @@ public class BursarController implements Initializable {
         }
     }
 
-<<<<<<< HEAD
-=======
     @FXML
     public Button logoutBtn;
 
     @FXML
-    public void logoutBtnOnClick1(ActionEvent event) throws IOException {
+    public void logoutBtnOnClick(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("You are about to log out ");
         alert.setContentText("Are you sure you want to Log-Out ");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppLogin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "com/system/kisii_university_management_system/login/AppLogin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
@@ -422,6 +399,4 @@ public class BursarController implements Initializable {
             newStage.show();
         }
     }
-
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 }

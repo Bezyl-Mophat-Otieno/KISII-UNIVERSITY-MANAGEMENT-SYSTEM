@@ -50,12 +50,6 @@
             <artifactId>javafx-web</artifactId>
             <version>19</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>19</version>
-        </dependency>
-
             <!-- add all iText 7 modules -->
             <dependency>
                 <groupId>com.itextpdf</groupId>
@@ -86,7 +80,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.system.kisii_university_management_system/com.system.kisii_university_management_system.APP
+                                com.system.kisii_university_management_system/com.system.kisii_university_management_system.MainLogin.APP
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

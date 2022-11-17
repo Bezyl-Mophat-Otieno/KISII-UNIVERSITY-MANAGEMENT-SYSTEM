@@ -21,36 +21,34 @@
     <BorderPane layoutX="-12.0" prefHeight="680.0" prefWidth="1157.0">
         <top>
             <AnchorPane prefHeight="88.0" prefWidth="1184.0" BorderPane.alignment="CENTER">
-                <Text layoutX="35.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admissions Dashboard"
-                      wrappingWidth="281.7294921875">
-                    <font>
-                        <Font size="22.0"/>
-                    </font>
-                </Text>
-                <Text layoutX="399.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:"
-                      wrappingWidth="41.4287109375">
-                    <font>
-                        <Font size="22.0"/>
-                    </font>
-                </Text>
-                <Button layoutX="1069.0" layoutY="25.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0"
-                        prefWidth="104.0" text="Logout"/>
-                <Label fx:id="lblAdmissionsID" layoutX="440.0" layoutY="24.0" prefHeight="41.0" prefWidth="124.0">
-                    <font>
-                        <Font size="22.0"/>
-                    </font>
-                </Label>
-                <Text layoutX="619.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:"
-                      wrappingWidth="97.4287109375">
-                    <font>
-                        <Font size="22.0"/>
-                    </font>
-                </Text>
-                <Label fx:id="lblAdmissionsName" layoutX="706.0" layoutY="24.0" prefHeight="41.0" prefWidth="226.0">
-                    <font>
-                        <Font size="22.0"/>
-                    </font>
-                </Label>
+            <children>
+               <Text layoutX="35.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admissions Dashboard" wrappingWidth="281.7294921875">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Text>
+               <Text layoutX="399.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="41.4287109375">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Text>
+               <Button layoutX="1069.0" layoutY="25.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="36.0" prefWidth="104.0" text="Logout" />
+               <Label fx:id="lblAdmissionsID" layoutX="440.0" layoutY="24.0" prefHeight="41.0" prefWidth="124.0">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Label>
+               <Text layoutX="619.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="97.4287109375">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Text>
+               <Label fx:id="lblAdmissionsName" layoutX="706.0" layoutY="24.0" prefHeight="41.0" prefWidth="226.0">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Label>
+            </children>
             </AnchorPane>
         </top>
         <center>

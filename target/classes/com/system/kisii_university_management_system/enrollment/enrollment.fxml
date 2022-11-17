@@ -31,7 +31,7 @@
                         <Font size="22.0" />
                     </font>
                 </Text>
-                <Button layoutX="1069.0" layoutY="25.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="104.0" text="Logout" />
+                <Button layoutX="1069.0" layoutY="25.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="36.0" prefWidth="104.0" text="Logout" />
                 <Label fx:id="lblAdmissionsID" layoutX="440.0" layoutY="24.0" prefHeight="41.0" prefWidth="124.0">
                     <font>
                         <Font size="22.0" />

@@ -1,5 +1,7 @@
 package com.system.kisii_university_management_system;
 
+import com.system.kisii_university_management_system.FXMLloader.FXMLloader;
+import com.system.kisii_university_management_system.database.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,7 +11,7 @@ import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -42,13 +44,12 @@ public class updateStudentDetails implements Initializable {
 
     @FXML
     public Button homeBtn;
+    private final DBConnection database = new DBConnection();
 
     //update data processing
     @FXML
-    public void updateStudentDataBtnOnClick(ActionEvent event) {
-
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        Connection connectDB = databaseConnection.getConnection();
+    public void updateStudentDataBtnOnClick() throws SQLException {
+        Connection connectDB = database.getConnection();
         String updateData = "UPDATE `Student` SET `Std_ID` ='"+Std_IDTxtField.getText()+"',`Std_Name`='"+Std_NameTxtField.getText()+"',`Std_Email`='"+Std_EmailTxtField.getText()+"',`Password`='"+Std_PasswordTxtField.getText()+"',`Course`='"+CourseTxtField.getText()+"'" +
                 ",`Status`='"+StatusTxtField.getText()+"'  WHERE `Std_ID` = '"+Std_IDTxtField.getText()+"'";
 
@@ -78,7 +79,7 @@ public class updateStudentDetails implements Initializable {
   public   BorderPane studentDetailsPane;
     //Home button
     @FXML
-    public void homeBtnOnClick (ActionEvent event){
+    public void homeBtnOnClick (){
         FXMLloader object = new FXMLloader();
         Pane view = object.getPage("AdmissionsOffice");
         studentDetailsPane.setCenter(view);

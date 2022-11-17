@@ -13,26 +13,24 @@ module com.system.kisii_university_management_system {
     requires kernel;
     requires io;
     exports com.system.kisii_university_management_system;
-<<<<<<< HEAD
+    //Main Login
+    exports com.system.kisii_university_management_system.MainLogin;
+    opens com.system.kisii_university_management_system.MainLogin to javafx.fxml;
     //Admission
     exports com.system.kisii_university_management_system.Admission;
     opens com.system.kisii_university_management_system.Admission to javafx.fxml;
     //Bursar
-=======
-//Bursar
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
     exports com.system.kisii_university_management_system.Bursar;
     opens com.system.kisii_university_management_system.Bursar to javafx.fxml;
     //Enrollment
     exports com.system.kisii_university_management_system.Enrollment;
     opens com.system.kisii_university_management_system.Enrollment to javafx.fxml;
-<<<<<<< HEAD
-=======
-    //Admission
-    exports com.system.kisii_university_management_system.Admission;
-    opens com.system.kisii_university_management_system.Admission to javafx.fxml;
+    // Course Advisor
+    exports com.system.kisii_university_management_system.CourseAdvisor;
+    opens com.system.kisii_university_management_system.CourseAdvisor to javafx.fxml;
+
+    exports com.system.kisii_university_management_system.Student;
+    exports com.system.kisii_university_management_system.FXMLloader;
 
 
-
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 }

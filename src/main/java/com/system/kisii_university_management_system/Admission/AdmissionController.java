@@ -1,11 +1,7 @@
 package com.system.kisii_university_management_system.Admission;
 
-<<<<<<< HEAD
 import com.system.kisii_university_management_system.database.DBConnection;
-=======
 import com.system.kisii_university_management_system.Enrollment.StudentsTable;
-import com.system.kisii_university_management_system.database.DBConnection1;
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,11 +30,8 @@ import static java.lang.Integer.parseInt;
 
 
 public class AdmissionController implements Initializable {
-<<<<<<< HEAD
+
     private final DBConnection database = new DBConnection();
-=======
-    private final DBConnection1 database = new DBConnection1();
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
     private boolean isNewButtonClicked;
     private  boolean isEditButtonClicked;
 //    private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -107,16 +100,19 @@ public class AdmissionController implements Initializable {
         if(!checkFieldsEmpty()){
             Connection connection = database.getConnection();
             Statement statement = connection.createStatement();
-            sqlQuery = "Insert into students values('"+fieldStdID.getText()+"','"+fieldStdName.getText()+"'," +
+            sqlQuery = "Insert into Student values('"+fieldStdID.getText()+"','"+fieldStdName.getText()+"'," +
                 "'"+fieldStdEmail.getText()+"','"+fieldStdPassword.getText()+"'," +
                 "'"+fieldStdCourse.getSelectionModel().getSelectedItem()+"','"+ parseInt(fieldYearOfStudy.getText())+"',"
                 + "'"+fieldStatus.getSelectionModel().getSelectedItem()+"');";
             String sqlQueryInsert = "Insert into `graduationEligible` values('"+fieldStdID.getText()+"','No')";
             int resultInsert = statement.executeUpdate(sqlQueryInsert);
             int result = statement.executeUpdate(sqlQuery);
+            System.out.println(resultInsert);
+            System.out.println(result);
             if(result == 1 && resultInsert == 1){
                 informationAlert.setContentText("Student Added Successfully!");
                 informationAlert.show();
+                clearAll();
             }
             else{
                 errorAlert.setHeaderText("Error encountered!");
@@ -134,7 +130,7 @@ public class AdmissionController implements Initializable {
     //Update Student Information
 
     public void updateStudent() throws SQLException{
-        sqlQuery ="Update students set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
+        sqlQuery ="Update Student set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
             "Std_Email='"+fieldStdEmail.getText()+"',Password='"+fieldStdPassword.getText()+"'," +
             "Course='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
             "YOS='"+ parseInt(fieldYearOfStudy.getText())+"',"
@@ -142,6 +138,7 @@ public class AdmissionController implements Initializable {
                 "where Std_ID='"+fieldStdID.getText()+"';";
 
         int result =  database.getConnection().createStatement().executeUpdate(sqlQuery);
+        System.out.println(result);
         if(result == 1){
             informationAlert.setContentText("Student Updated Successfully");
             informationAlert.setHeaderText("Success");
@@ -165,7 +162,7 @@ public class AdmissionController implements Initializable {
             informationAlert.show();
         }
         else{
-            sqlQuery = "Delete from students where Std_ID= '"+stdTable.getId()+"';";
+            sqlQuery = "Delete from Student where Std_ID= '"+stdTable.getId()+"';";
 
             database.getConnection().createStatement().executeUpdate(sqlQuery);
             stdTableView.setItems(getStudents(null));
@@ -185,7 +182,7 @@ public class AdmissionController implements Initializable {
         }
         else{
             setAllEnable();
-            sqlQuery = "Select * from students where Std_ID='"+stdTable.getId()+"';";
+            sqlQuery = "Select * from Student where Std_ID='"+stdTable.getId()+"';";
 
             result = database.getConnection().createStatement().executeQuery(sqlQuery);
             while (result.next()){
@@ -199,7 +196,6 @@ public class AdmissionController implements Initializable {
             fieldStatus.setValue(result.getString("Status"));
             }
             isEditButtonClicked = true;
-            clearAll();
         }
     }
 
@@ -209,7 +205,7 @@ public class AdmissionController implements Initializable {
             informationAlert.setContentText("Kindly Enter Student ID!");
             informationAlert.show();
         }
-        sqlQuery = "Select * from students where Std_ID LIKE'%"+fieldSearch.getText()+"%';";
+        sqlQuery = "Select * from Student where Std_ID LIKE'%"+fieldSearch.getText()+"%';";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
         if(result.next()){
             stdTableView.setItems(getStudents(sqlQuery));
@@ -233,7 +229,7 @@ public class AdmissionController implements Initializable {
     public ObservableList<String> getCourses() throws SQLException{
         Connection connection = database.getConnection();
         Statement statement = connection.createStatement();
-        String sqlQuery = "Select * from courses;";
+        String sqlQuery = "Select * from Courses;";
         ResultSet result = statement.executeQuery(sqlQuery);
         ObservableList<String> courses = FXCollections.observableArrayList();
         while (result.next()){
@@ -278,7 +274,7 @@ public class AdmissionController implements Initializable {
     public ObservableList<String>  getStatus() throws SQLException{
         Connection connection = database.getConnection();
         Statement statement = connection.createStatement();
-        String sqlQuery = "select Distinct(Status) from students;";
+        String sqlQuery = "select Distinct(Status) from Student;";
         ResultSet result = statement.executeQuery(sqlQuery);
         ObservableList<String> courses = FXCollections.observableArrayList();
         while (result.next()){
@@ -322,7 +318,7 @@ public class AdmissionController implements Initializable {
         }
         else{
 
-        sqlQuery = "Select * from students;";
+        sqlQuery = "Select * from Student;";
         }
         ObservableList<StudentsTable> studentTableData = FXCollections.observableArrayList();
 
@@ -353,16 +349,7 @@ public class AdmissionController implements Initializable {
 
         stdTableView.setItems(getStudents(null));
     }
-    public void logout(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-                "/com/example/studentregistrationsystem/mainlogin/mainlogin.fxml")));
-        Stage admissionStage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-        admissionStage.close();
 
-    }
 
     public ArrayList<String> getAdmissionDetails() throws SQLException{
         String id = "ADM-001";
@@ -376,12 +363,6 @@ public class AdmissionController implements Initializable {
         return admDetails;
     }
 
-<<<<<<< HEAD
-=======
-
-    @FXML
-    public Button logoutBtn;
-
     @FXML
     public void logoutBtnOnClick(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -389,9 +370,10 @@ public class AdmissionController implements Initializable {
         alert.setContentText("Are you sure you want to Log-Out ");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppLogin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/com/system/kisii_university_management_system/login/AppLogin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
@@ -399,7 +381,4 @@ public class AdmissionController implements Initializable {
             newStage.show();
         }
     }
-
-
->>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 }

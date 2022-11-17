@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JsonSchemaMappingsProjectConfiguration">
+    <state>
+      <map>
+        <entry key="1">
+          <value>
+            <SchemaInfo>
+              <option name="generatedName" value="New Schema" />
+              <option name="name" value="1" />
+              <option name="relativePathToSchema" value="http://javafx.com/fxml/1" />
+            </SchemaInfo>
+          </value>
+        </entry>
+        <entry key="1 2">
+          <value>
+            <SchemaInfo>
+              <option name="generatedName" value="New Schema" />
+              <option name="name" value="1 2" />
+              <option name="relativePathToSchema" value="http://javafx.com/fxml/1" />
+            </SchemaInfo>
+          </value>
+        </entry>
+      </map>
+    </state>
+  </component>
+</project>
