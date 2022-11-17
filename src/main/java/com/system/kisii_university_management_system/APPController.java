@@ -53,9 +53,9 @@ public class APPController {
         } else if ( IDtxtField.getText().startsWith("CAD")) {
             CADLoginVerification();
         } else if (IDtxtField.getText().startsWith("BURS")) {
-            loginAlerts.setText("Display Course Bursar's Dashboard");
+            bursarLoginVerification();
         } else if (IDtxtField.getText().startsWith("ENR")) {
-            loginAlerts.setText("Display Course Enrollment's Dashboard");
+            enrollmentLoginVerification();
         } else if (IDtxtField.getText().startsWith("ADM")) {
             admOfficeLoginVerification();
         }else{
@@ -99,6 +99,34 @@ public class APPController {
 
     }
 
+    // BURSAR AUTHENTICATION
+
+    public  void bursarLoginVerification (){
+
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connectDB = databaseConnection.getConnection();
+        String sql = "SELECT COUNT(1) FROM bursar WHERE ID ='"+IDtxtField.getText()+"'AND Password ='"+
+                passwordTxtField.getText()+"'";
+
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                if (resultSet.getInt(1)==1){
+                    displayBursarDashboard();
+                }else {
+                    loginAlerts.setText("Incorrect Email or Password ");
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
     //CAD LOGIN Authentication
 
     public  void CADLoginVerification (){
@@ -127,6 +155,34 @@ public class APPController {
     }
 
 
+    //CAD LOGIN Authentication
+
+    public  void enrollmentLoginVerification (){
+
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connectDB = databaseConnection.getConnection();
+        String sql = "SELECT COUNT(1) FROM enrollment WHERE ID ='"+IDtxtField.getText()+"'AND Password ='"+
+                passwordTxtField.getText()+"'";
+
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                if (resultSet.getInt(1)==1){
+                    displayEnrollmentDashboard();
+                }else {
+                    loginAlerts.setText("Incorrect Email or Password ");
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
     public  void admOfficeLoginVerification (){
 
         DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -141,7 +197,7 @@ public class APPController {
             while (resultSet.next()){
                 if (resultSet.getInt(1)==1){
 
-                    displayAdmissionsOfficeDashboard();
+                    displayadmDashboard();
 
                 }else {
                     loginAlerts.setText("Incorrect Email or Password ");
@@ -211,6 +267,49 @@ public class APPController {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         newStage.setTitle("Course Advisor Dashboard");
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+
+    //display course Advisors dashbnoard
+    public void displayBursarDashboard() throws IOException {
+        Stage stage = (Stage)loginBtn.getScene().getWindow();
+        stage.close();
+        Stage newStage = new Stage();
+        // create an FXML Loader instance
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("bursar.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        newStage.setTitle("Bursar Dashboard");
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+    public void displayadmDashboard() throws IOException {
+        Stage stage = (Stage)loginBtn.getScene().getWindow();
+        stage.close();
+        Stage newStage = new Stage();
+        // create an FXML Loader instance
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("admission.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        newStage.setTitle("Admissions Dashboard");
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+
+    //display course Advisors dashbnoard
+    public void displayEnrollmentDashboard() throws IOException {
+        Stage stage = (Stage)loginBtn.getScene().getWindow();
+        stage.close();
+        Stage newStage = new Stage();
+        // create an FXML Loader instance
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("enrollment.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        newStage.setTitle("Enrollment Dashboard");
         newStage.setScene(scene);
         newStage.show();
     }

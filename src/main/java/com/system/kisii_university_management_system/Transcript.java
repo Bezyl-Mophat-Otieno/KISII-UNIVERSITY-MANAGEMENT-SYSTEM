@@ -1,6 +1,7 @@
 package com.system.kisii_university_management_system;
 
-import javafx.scene.control.CheckBox;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class Transcript {
 
@@ -10,10 +11,7 @@ public class Transcript {
     public Transcript() {
     }
 
-    public Transcript(String unitCode, Double GPA) {
-        this.UnitCode = unitCode;
-        this.GPA = GPA;
-    }
+
 
     public String getUnitCode() {
         return UnitCode;
@@ -27,7 +25,7 @@ public class Transcript {
         return GPA;
     }
 
-    public void setGPA(Double GPA) {
+    public void setGPA(double GPA) {
         this.GPA = GPA;
     }
 }

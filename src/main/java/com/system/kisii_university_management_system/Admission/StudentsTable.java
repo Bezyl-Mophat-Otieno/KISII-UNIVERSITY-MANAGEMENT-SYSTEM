@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.system.kisii_university_management_system.Admission;
+=======
+package com.example.studentregistrationsystem.Admission;
+>>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

@@ -1,6 +1,12 @@
 package com.system.kisii_university_management_system.Enrollment;
 
+<<<<<<< HEAD
 import com.system.kisii_university_management_system.database.DBConnection;
+=======
+import com.system.kisii_university_management_system.database.DBConnection1;
+import com.system.kisii_university_management_system.database.DBConnection1;
+import com.system.kisii_university_management_system.database.DBConnection1;
+>>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +35,11 @@ import static java.lang.Integer.parseInt;
 
 
 public class EnrollmentController implements Initializable {
+<<<<<<< HEAD
     private final DBConnection database = new DBConnection();
+=======
+    private final DBConnection1 database = new DBConnection1();
+>>>>>>> d5045dba163a45dfddec7a9be597028918433d00
     private boolean isNewButtonClicked;
     private  boolean isEditButtonClicked;
     private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -435,5 +445,29 @@ public class EnrollmentController implements Initializable {
         }
     }
 
+<<<<<<< HEAD
+=======
+    @FXML
+    public Button logoutBtn;
+
+    @FXML
+    public void logoutBtnOnClick(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("You are about to log out ");
+        alert.setContentText("Are you sure you want to Log-Out ");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppLogin.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
+        }
+    }
+
+>>>>>>> d5045dba163a45dfddec7a9be597028918433d00
 
 }

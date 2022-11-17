@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="CADBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.CourseAdvisorDashboard">
+   <center>
+      <AnchorPane prefHeight="900.0" prefWidth="818.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="CADactionTable" layoutX="68.0" layoutY="98.0" prefHeight="499.0" prefWidth="688.0">
+              <columns>
+                <TableColumn fx:id="Std_ID" prefWidth="111.0" text="Std_ID" />
+                  <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
+                  <TableColumn fx:id="Unit_Name" prefWidth="379.0" text="Unit_Name" />
+                  <TableColumn fx:id="action" prefWidth="197.0" text="Action" />
+              </columns>
+            </TableView>
+            <CheckBox fx:id="approveAll" layoutX="369.0" layoutY="622.0" mnemonicParsing="false" text="Approve all" />
+            <Button fx:id="approveBtn" layoutX="526.0" layoutY="615.0" mnemonicParsing="false" onAction="#uproveUnitsBtnOnclick" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #045004;" text="Approve" textFill="WHITE" />
+            <Button fx:id="logoutBtn" layoutX="685.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="24.0" prefWidth="121.0" style="-fx-background-color: #7d0808;" text="Log-Out" textFill="#fffbfb" />
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <AnchorPane prefHeight="907.0" prefWidth="434.0" style="-fx-background-color: #03013E;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="186.0" layoutY="75.0" prefHeight="16.0" prefWidth="89.0" text="MENU" textFill="#f8f5f5">
+               <font>
+                  <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="lecturersAssignBtn" layoutX="104.0" layoutY="145.0" mnemonicParsing="false" onAction="#lecturersAssignBtnOnClick" prefHeight="34.0" prefWidth="253.0" text="LECTURERS ASSIGNMENT" />
+            <Button fx:id="unitDescBtn" layoutX="105.0" layoutY="231.0" mnemonicParsing="false" onAction="#unitDescBtnOnClick" prefHeight="33.0" prefWidth="251.0" text="VIEW UNIT DESCRIPTION" />
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
