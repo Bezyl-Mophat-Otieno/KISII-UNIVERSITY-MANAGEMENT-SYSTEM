@@ -1,14 +1,15 @@
-package com.system.kisii_university_management_system;
+package com.system.kisii_university_management_system.CourseAdvisor;
 
+import com.system.kisii_university_management_system.FXMLloader.FXMLloader;
+import com.system.kisii_university_management_system.database.DBConnection;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -44,7 +46,7 @@ public class CourseAdvisorDashboard implements Initializable {
         @FXML
         public CheckBox approveAll;
 
-
+        private final DBConnection database = new DBConnection();
 
 
     ObservableList<CADunitApprovalTable> CADunitApprovalTable = FXCollections.observableArrayList();
@@ -58,9 +60,7 @@ public class CourseAdvisorDashboard implements Initializable {
 
 
                 try {
-
-                        DatabaseConnection databaseConnection = new DatabaseConnection();
-                        Connection connectDB = databaseConnection.getConnection();
+                        Connection connectDB = database.getConnection();
                         String status="Pending";
                         String sql1 = "SELECT  Std_ID, Unit_Name ,Status FROM `Register_Units` WHERE Units_Status='"+status+"'";
 
@@ -83,12 +83,13 @@ public class CourseAdvisorDashboard implements Initializable {
         }
         // Populate the CAD UNIT APPROVAL  table
         public void approvalTablePopulate(){
-
-                Std_ID.setCellValueFactory(new PropertyValueFactory<CADunitApprovalTable,String>("studentID"));
-                Unit_Name.setCellValueFactory(new PropertyValueFactory<CADunitApprovalTable,String>("unitName"));
-                action.setCellValueFactory(new PropertyValueFactory<CADunitApprovalTable, String>("action"));
-                CADactionTable.setItems((getUnitsForApproval()));
-
+                if(Std_ID != null || Unit_Name != null || action != null){
+                    assert Std_ID != null;
+                    Std_ID.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+                    Unit_Name.setCellValueFactory(new PropertyValueFactory<>("unitName"));
+                    action.setCellValueFactory(new PropertyValueFactory<>("action"));
+                    CADactionTable.setItems((getUnitsForApproval()));
+                }
 
 
         }
@@ -98,23 +99,19 @@ public class CourseAdvisorDashboard implements Initializable {
     // Select All method that checks all the units
 
     public void selectAllOnClick(){
-        approveAll.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+        if(approveAll != null){
+            approveAll.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 System.out.println("Selected all selected");
 
                 CADunitApprovalTableRecords =CADactionTable.getItems();
 //                System.out.println(CADunitApprovalTableRecords.get(1).getAction().isSelected());
                 for (CADunitApprovalTable caDunitApprovalTableRecord: CADunitApprovalTableRecords) {
-                    if(approveAll.isSelected()){
-                        caDunitApprovalTableRecord.getAction().setSelected(true);
-                    }else {
-                        caDunitApprovalTableRecord.getAction().setSelected(false);
-                    }
+                    caDunitApprovalTableRecord.getAction().setSelected(approveAll.isSelected());
 
                 }
-            }
-        });
+            });
+
+        }
 
     }
 
@@ -122,24 +119,21 @@ public class CourseAdvisorDashboard implements Initializable {
     // Approve selected units
 
 
-    public void  uproveUnitsBtnOnclick(ActionEvent event){
+    public void approveUnitsBtnOnclick() throws SQLException {
         CADunitApprovalTableRecords = CADactionTable.getItems();
-        Integer numberOfRecords = CADunitApprovalTableRecords.size();
-        System.out.println(numberOfRecords.intValue());
-        for(int i =0 ; i<numberOfRecords ; i++){
-            if(CADunitApprovalTableRecords.get(i).getAction().isSelected()){
-                System.out.println(CADunitApprovalTableRecords.get(i).getStudentID());
-                DatabaseConnection databaseConnection = new DatabaseConnection();
-                Connection connectDB = databaseConnection.getConnection();
-
-
+        int numberOfRecords = CADunitApprovalTableRecords.size();
+        System.out.println(numberOfRecords);
+        for (com.system.kisii_university_management_system.CourseAdvisor.CADunitApprovalTable caDunitApprovalTableRecord
+                : CADunitApprovalTableRecords) {
+            if (caDunitApprovalTableRecord.getAction().isSelected()) {
+                System.out.println(caDunitApprovalTableRecord.getStudentID());
+                Connection connectDB = database.getConnection();
                 String status = "approved";
-                String updateData = "UPDATE `Register_Units` SET `Units_Status` ='"+status+"' " +
-                        "WHERE Std_ID = '"+CADunitApprovalTableRecords.get(i).getStudentID()+"'";
+                String updateData = "UPDATE `Register_Units` SET `Units_Status` ='" + status + "' " +
+                        "WHERE Std_ID = '" + caDunitApprovalTableRecord.getStudentID() + "'";
                 try {
                     Statement statement = connectDB.createStatement();
                     statement.executeUpdate(updateData);
-
 
 
                 } catch (Exception e) {
@@ -174,9 +168,10 @@ public Button logoutBtn;
         alert.setContentText("Are you sure you want to Log-Out ");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppLogin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/com/system/kisii_university_management_system/login/AppLogin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
@@ -191,7 +186,7 @@ public Button logoutBtn;
     public  Button unitDescBtn;
 
     @FXML
-   public void lecturersAssignBtnOnClick(ActionEvent event){
+   public void lecturersAssignBtnOnClick(){
 
         FXMLloader object = new FXMLloader();
         Pane view = object.getPage("lecturerAssignment");
@@ -219,14 +214,23 @@ public Button logoutBtn;
 
 
     @FXML
-    public ChoiceBox<String> choiceBox;
+    public ChoiceBox<String> choiceBox ;
 
 
     @FXML
     public Label frontEndErrorAlert;
 
-
-    public  String[]Courses ={"Applied Computer Science","Software Engineering","Computer Science" ,"journalism"};
+    public ObservableList<String> getCourses() throws SQLException{
+        Connection connection = database.getConnection();
+        Statement statement = connection.createStatement();
+        String sqlQuery = "Select * from Courses;";
+        ResultSet result = statement.executeQuery(sqlQuery);
+        ObservableList<String> courses = FXCollections.observableArrayList();
+        while (result.next()){
+            courses.add(result.getString("courseID"));
+        }
+        return courses;
+    }
 
 
 
@@ -234,7 +238,7 @@ public Button logoutBtn;
     @FXML
     public BorderPane CADBorderPane;
     @FXML
-    public void unitDescBtnOnClick(ActionEvent event){
+    public void unitDescBtnOnClick(){
 
         FXMLloader object = new FXMLloader();
         Pane view = object.getPage("CourseDesc");
@@ -251,9 +255,15 @@ public Button logoutBtn;
                 approvalTablePopulate();
                 selectAllOnClick();
                 // Initializing the courses choice box
-                choiceBox.getItems().addAll(Courses);
+                if(choiceBox != null) {
+                    try {
+                        choiceBox.getItems().addAll(getCourses());
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
-                            });
+            });
 
         }
 
@@ -264,15 +274,14 @@ public Button logoutBtn;
     public TextField unitIDTextField;
     public String unitDesc;
     @FXML
-    public void viewUnitDescBtnOnClick(ActionEvent event) {
+    public void viewUnitDescBtnOnClick() {
 
 
 
         try {
 
-            DatabaseConnection databaseConnection = new DatabaseConnection();
-            Connection connectDB = databaseConnection.getConnection();
-            String sql1 = "SELECT   Unit_Desc FROM `Course_Units` WHERE Unit_Code='"+unitIDTextField.getText()+"'";
+            Connection connectDB = database.getConnection();
+            String sql1 = "SELECT Unit_Desc FROM `Course_Units` WHERE Unit_Code='"+unitIDTextField.getText()+"'";
             System.out.println(sql1);
 
 
@@ -293,33 +302,16 @@ public Button logoutBtn;
     public Button logoutBtn1;
 
     @FXML
-    public void logoutBtnOnClick1(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("You are about to log out ");
-        alert.setContentText("Are you sure you want to Log-Out ");
-
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            Stage stage = (Stage) logoutBtn1.getScene().getWindow();
-            stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppLogin.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage newStage = new Stage();
-            newStage.setScene(scene);
-            newStage.show();
-        }
-    }
-
-    @FXML
     public Button homeBtn;
 
     @FXML
     public Button homeBtn2;
     public void homeBtnOnClick(ActionEvent event) throws IOException{
 
-        Stage stage = (Stage) homeBtn.getScene().getWindow();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CourseAdvisorDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                "/com/system/kisii_university_management_system/courseadvisor/CourseAdvisorDashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
@@ -335,10 +327,9 @@ public Button logoutBtn;
 
 
 
-    public void addLecturerBtnOnClick(ActionEvent event) {
+    public void addLecturerBtnOnClick() throws SQLException {
 
-            DatabaseConnection databaseConnection = new DatabaseConnection();
-            Connection connectDB = databaseConnection.getConnection();
+            Connection connectDB = database.getConnection();
 
             String insertData = "INSERT INTO `Lecturers`(`Staff_No`,`Name`,`Course_Name`) VALUES " +
                     "('" + staffNoTxtField.getText() + "','" + lecNameTxtField.getText() + "','" + choiceBox.getValue() + "')";
@@ -382,9 +373,10 @@ public Button logoutBtn;
 
     public void homeBtn2OnClick(ActionEvent event) throws IOException{
 
-        Stage stage = (Stage) homeBtn2.getScene().getWindow();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CourseAdvisorDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                "/com/system/kisii_university_management_system/courseadvisor/CourseAdvisorDashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
