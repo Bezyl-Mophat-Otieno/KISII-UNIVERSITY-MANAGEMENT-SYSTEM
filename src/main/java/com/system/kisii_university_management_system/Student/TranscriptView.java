@@ -106,6 +106,8 @@ public class TranscriptView implements Initializable {
     @FXML
     public void printTranscript(ActionEvent  event) throws IOException {
 
+        
+
 
 
 
