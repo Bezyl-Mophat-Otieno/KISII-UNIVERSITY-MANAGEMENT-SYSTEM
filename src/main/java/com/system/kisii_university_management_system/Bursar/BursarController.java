@@ -74,10 +74,7 @@ public class BursarController implements Initializable {
     TableColumn<FeeTable, Double> colFeeAmount;
     @FXML
     private TextField fieldSearch;
-    @FXML
-    private Label lblAdmissionsID;
-    @FXML
-    private Label lblAdmissionsName;
+
     private FeeTable feeTable;
 
 
@@ -198,22 +195,26 @@ public class BursarController implements Initializable {
     }
 
     //Searching For Student Information
+    @FXML
     public void searchStudent() throws SQLException{
         if(fieldSearch.getText().isEmpty()){
             informationAlert.setContentText("Kindly Enter Student ID!");
             informationAlert.show();
+        } else {
+            sqlQuery = "Select Student.Std_ID, Student.Std_Name, Student.Std_Email,Student.Course_ID, Student.YOS," +
+                    "Student.Status,billstatement.feeAmount from Student inner join billstatement on " +
+                    "Student.Std_ID=billstatement.Std_ID where billstatement.Std_ID LIKE '%"+fieldSearch.getText()+"%';";
+            result = database.getConnection().createStatement().executeQuery(sqlQuery);
+            if(result.next()){
+                feeTableView.setItems(getFeeStatement(sqlQuery));
+            }
+            else{
+                informationAlert.setContentText("No Student Found!");
+                informationAlert.show();
+            }
+
         }
-        sqlQuery = "Select Student.Std_ID, Student.Std_Name, Student.Std_Email,Student.Course, Student.YOS," +
-            "Student.Status,billstatement.feeAmount from students inner join billstatement on " +
-            "Student.Std_ID=billstatement.Std_ID where billstatement.Std_ID LIKE '%"+fieldStdID.getText()+"%';";
-        result = database.getConnection().createStatement().executeQuery(sqlQuery);
-        if(result.next()){
-            feeTableView.setItems(getFeeStatement(sqlQuery));
-        }
-        else{
-            informationAlert.setContentText("No Student Found!");
-            informationAlert.show();
-        }
+
     }
     public void cancel(){
         setAllDisable();
@@ -253,11 +254,10 @@ public class BursarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            lblAdmissionsID.setText(getBursarDetails().get(0));
-            lblAdmissionsName.setText(getBursarDetails().get(1));
             setAllDisable();
             getFeeStatement(null);
             FeeAmountTable();
+
 
 
         } catch (SQLException e) {
@@ -272,7 +272,7 @@ public class BursarController implements Initializable {
         }
         else{
 
-        sqlQuery = "Select Student.Std_ID, students.Std_Name, Student.Std_Email,students.Course, students.YOS," +
+        sqlQuery = "Select Student.Std_ID, Student.Std_Name, Student.Std_Email,Student.Course_ID, Student.YOS," +
                 "Student.Status,billstatement.feeAmount from Student inner join billstatement on " +
                 "Student.Std_ID=billstatement.Std_ID";
 
@@ -285,7 +285,7 @@ public class BursarController implements Initializable {
                     result.getString("Std_ID"),
                     result.getString("Std_Name"),
                     result.getString("Std_Email"),
-                    result.getString("Course"),
+                    result.getString("Course_ID"),
                     result.getInt("YOS"),
                     result.getDouble("feeAmount")
 
@@ -326,7 +326,7 @@ public class BursarController implements Initializable {
             informationAlert.show();
         }
         else{
-            String path="/home/mugo/Downloads/"+String.valueOf(feeTable.getId()).replace("/","")+" Fee Statement.pdf";
+            String path="/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"+String.valueOf(feeTable.getId()).replace("/","")+" Fee Structure.pdf";
             PdfWriter feeWriter = new PdfWriter(path);
             PdfDocument feeDocument = new PdfDocument(feeWriter);
             feeDocument.setDefaultPageSize(PageSize.A4);
@@ -391,7 +391,7 @@ public class BursarController implements Initializable {
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "com/system/kisii_university_management_system/login/AppLogin.fxml"));
+                    "/com/system/kisii_university_management_system/login/AppLogin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage newStage = new Stage();

@@ -74,11 +74,6 @@ public class EnrollmentController implements Initializable {
     private TextField fieldSearch;
     @FXML
     private TextField fieldCheckStatus;
-    @FXML
-    private Label lblAdmissionsID;
-    @FXML
-    private Label lblAdmissionsName;
-
 //    public boolean isNewButtonClicked;
 
     //Save button functionality
@@ -99,7 +94,7 @@ public class EnrollmentController implements Initializable {
         else{
             sqlQuery ="Update Student set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
                     "Std_Email='"+fieldStdEmail.getText()+"',Password='"+fieldStdPassword.getText()+"'," +
-                    "Course='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
+                    "Course_ID='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
                     "YOS='"+ parseInt(fieldYearOfStudy.getText())+"',"
                     + "Status='"+fieldStatus.getSelectionModel().getSelectedItem()+"' " +
                     "where Std_ID='"+fieldStdID.getText()+"';";
@@ -143,7 +138,7 @@ public class EnrollmentController implements Initializable {
             fieldStdName.setText(result.getString("Std_Name"));
             fieldStdEmail.setText(result.getString("Std_Email"));
             fieldStdPassword.setText(result.getString("Password"));
-            fieldStdCourse.setValue(result.getString("Course"));
+            fieldStdCourse.setValue(result.getString("Course_ID"));
             fieldYearOfStudy.setText(result.getString("YOS"));
             fieldStatus.setValue(result.getString("Status"));
             }
@@ -193,7 +188,7 @@ public class EnrollmentController implements Initializable {
         ResultSet result = statement.executeQuery(sqlQuery);
         ObservableList<String> courses = FXCollections.observableArrayList();
         while (result.next()){
-            courses.add(result.getString("courseID"));
+            courses.add(result.getString("course_ID"));
         }
         return courses;
     }
@@ -259,8 +254,6 @@ public class EnrollmentController implements Initializable {
         try {
             fieldStdCourse.setItems(getCourses());
             fieldStatus.setItems(getStatus());
-            lblAdmissionsID.setText(getEnrollmentDetails().get(0));
-            lblAdmissionsName.setText(getEnrollmentDetails().get(1));
             setAllDisable();
             getStudents(null);
             StdTable();
@@ -290,7 +283,7 @@ public class EnrollmentController implements Initializable {
                     result.getString("Std_Name"),
                     result.getString("Std_Email"),
                     result.getString("Password"),
-                    result.getString("Course"),
+                    result.getString("Course_ID"),
                     result.getInt("YOS"),
                     result.getString("Status")
 
@@ -358,7 +351,7 @@ public class EnrollmentController implements Initializable {
                         }
                         else{
                             String sqlQueryNumberOfUnits = "Select count(Unit_Code) as TotalCourseUnits from Course_Units " +
-                                    "where Course_ID=(Select courseID from Courses where courseID=(Select Course " +
+                                    "where Course_ID=(Select course_ID from Courses where course_ID=(Select Course_ID " +
                                     "from Student where Std_ID='"+fieldCheckStatus.getText()+"'));";
                             ResultSet resultSetNumberOfUnits = database.getConnection().createStatement()
                                     .executeQuery(sqlQueryNumberOfUnits);
@@ -366,7 +359,7 @@ public class EnrollmentController implements Initializable {
                                 int TotalCourseUnits = resultSetNumberOfUnits.getInt("TotalCourseUnits");
                                 if (!(TotalUnits == TotalCourseUnits)){
                                     informationAlert.setContentText("The Student Is Not Eligible For Graduation!");
-                                    informationAlert.setHeaderText("No All Marks Entered For Student!");
+                                    informationAlert.setHeaderText("Not All Marks Entered For Student!");
                                     informationAlert.show();
                                 }
                                 else{
@@ -412,7 +405,7 @@ public class EnrollmentController implements Initializable {
     }
 
     public void getListOfGraduants() throws SQLException {
-        sqlQuery = "Select Std_ID, Std_Name, Std_Email, Course,Password, YOS,Status from Student where Std_ID=" +
+        sqlQuery = "Select Std_ID, Std_Name, Std_Email, Course_ID,Password, YOS,Status from Student where Std_ID=" +
                 "(Select Std_ID from graduationEligible where isEligible='Yes');";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
         if (!result.next()) {

@@ -41,7 +41,7 @@ public class APPController {
     private final DBConnection database = new DBConnection();
 
     @FXML
-    public void loginBtnOnClick() throws SQLException {
+    public void loginBtnOnClick() throws SQLException, IOException {
         if(IDtxtField.getText().isBlank() || passwordTxtField.getText().isBlank()){
             loginAlerts.setText("Kindly fill in all the Details");
 
@@ -71,14 +71,25 @@ public class APPController {
         stage.close();
     }
     // student Login test
+private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
 
-    public  void studentLoginVerification () throws SQLException {
+    public  void studentLoginVerification () throws SQLException, IOException {
         Connection connectDB = database.getConnection();
-        String sql = "SELECT COUNT(1) FROM Student WHERE Std_ID ='"+IDtxtField.getText()+"'AND Password ='"+
+        String sql1 = "SELECT Status FROM Student WHERE Std_ID ='"+IDtxtField.getText()+"'";
+        System.out.println(sql1);
+
+
+
+            Statement statement1 = connectDB.createStatement();
+            ResultSet resultSet1 = statement1.executeQuery(sql1);
+
+            while (resultSet1.next()){
+                if (resultSet1.getString(1).equals("active")  || resultSet1.getString(1).equals("inactive") ){
+                    System.out.println(resultSet1.getString(1)=="active");
+
+                    String sql = "SELECT COUNT(1) FROM Student WHERE Std_ID ='"+IDtxtField.getText()+"'AND Password ='"+
                 passwordTxtField.getText()+"'";
 
-
-        try {
             Statement statement = connectDB.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
@@ -89,11 +100,19 @@ public class APPController {
                 }
 
             }
-        }catch (Exception e){
-            e.printStackTrace();
+                }else {
+                    errorAlerts.setContentText("Dropped Out or Deffered  Students Are Not Allowed to Log In");
+                    errorAlerts.show();
+                }
+
+            }
         }
 
-    }
+
+
+
+
+
 
     // BURSAR AUTHENTICATION
 
@@ -203,8 +222,8 @@ public class APPController {
 
 
         Connection connectDB = database.getConnection();
-        String sql = "SELECT Student.Std_Name , Courses.courseName , Courses.courseID , costPrice FROM Student JOIN Courses " +
-            "ON Student.Course = Courses.courseID WHERE Student.Std_ID='"+IDtxtField.getText()+"'";
+        String sql = "SELECT Student.Std_Name , Courses.Course_Name , Courses.Course_ID , Courses.Cost_Price FROM Student JOIN Courses " +
+            "ON Student.Course_ID = Courses.Course_ID WHERE Student.Std_ID='"+IDtxtField.getText()+"'";
 
 
         try {
@@ -240,7 +259,6 @@ public class APPController {
         StudentDashboard studentDashboard= loader.getController();
         studentDashboard.getStudentIDtxtField(IDtxtField.getText());
 //        studentDashboard.displayStudentDetails(name, course, courseID, feesPayable);
-        System.out.println(IDtxtField.getText());
         Scene scene = new Scene(root);
         newStage.setTitle("Student Dashboard");
         newStage.setScene(scene);

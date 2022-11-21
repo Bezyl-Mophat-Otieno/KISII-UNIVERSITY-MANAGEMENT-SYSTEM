@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="regStatusPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1199.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Student.UnitRegistrationStatus">
+<BorderPane fx:id="regStatusPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1199.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Student.UnitRegistrationStatus">
    <center>
        <AnchorPane prefHeight="900.0" prefWidth="682.0" BorderPane.alignment="CENTER">
-           <TableView fx:id="unitStatusTable" layoutX="338.0" layoutY="136.0" prefHeight="494.0" prefWidth="579.0">
+           <TableView fx:id="unitStatusTable" layoutX="342.0" layoutY="26.0" prefHeight="286.0" prefWidth="579.0">
                <columns>
-                   <TableColumn fx:id="Unit_Code" prefWidth="174.0" text="Unit_Code"/>
-                   <TableColumn fx:id="Unit_Name" prefWidth="271.0" text="Unit_Name"/>
-                   <TableColumn fx:id="Units_Status" prefWidth="141.0" text="Units_Status"/>
+                   <TableColumn fx:id="Unit_Code" prefWidth="174.0" text="Unit_Code" />
+                   <TableColumn fx:id="Unit_Name" prefWidth="271.0" text="Unit_Name" />
+                   <TableColumn fx:id="Units_Status" prefWidth="141.0" text="Units_Status" />
                </columns>
            </TableView>
-           <Button fx:id="homeBtn" layoutX="1039.0" layoutY="53.0" mnemonicParsing="false" onAction="#homeBtnOnClick"
-                   prefHeight="30.0" prefWidth="122.0" style="-fx-background-color: #7d0808;" text="HOME"
-                   textFill="#f2efef"/>
+           <Button fx:id="homeBtn" layoutX="1039.0" layoutY="53.0" mnemonicParsing="false" onAction="#homeBtnOnClick" prefHeight="30.0" prefWidth="122.0" style="-fx-background-color: #7d0808;" text="HOME" textFill="#f2efef" />
+         <Button fx:id="examCard" layoutX="624.0" layoutY="365.0" mnemonicParsing="false" onAction="#printExamCard" prefHeight="38.0" prefWidth="158.0" style="-fx-background-color: #045004;" text="Print Exam Card" textFill="WHITE" />
        </AnchorPane>
    </center>
 </BorderPane>

@@ -1,5 +1,6 @@
 package com.system.kisii_university_management_system;
 
+import com.system.kisii_university_management_system.database.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class AdmissionsOffice {
@@ -71,7 +73,7 @@ public class AdmissionsOffice {
 
 
     @FXML
-    public void stdRegisterBtnOnClick(ActionEvent event) {
+    public void stdRegisterBtnOnClick(ActionEvent event) throws SQLException {
 
         registerStudent();
 
@@ -88,9 +90,9 @@ public class AdmissionsOffice {
 
     //register a student method
 
-    public void registerStudent() {
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        Connection connectDB = databaseConnection.getConnection();
+    public void registerStudent() throws SQLException {
+        DBConnection database = new DBConnection();
+        Connection connectDB = database.getConnection();
 
         String insertData = "INSERT INTO `Student`(`Std_ID`,`Std_Name`,`Std_Email`,`Password`,`Course`,`YOS`,`Status`) VALUES " +
                 "('" + Std_IDTxtField.getText() + "','" + Std_NameTxtField.getText() + "','" + Std_EmailTxtField.getText() + "','" + Std_PasswordTxtField.getText() + "'" +
@@ -141,10 +143,10 @@ public class AdmissionsOffice {
     }
     // A method that initializes the form data for update
 
-    public void updateFormData (){
+    public void updateFormData () throws SQLException {
 
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        Connection connectDB = databaseConnection.getConnection();
+        DBConnection database = new DBConnection();
+        Connection connectDB = database.getConnection();
         String sql = "SELECT * FROM `Student` WHERE std_ID='"+searchTxtField.getText()+"'";
 
         try {
@@ -181,7 +183,7 @@ public class AdmissionsOffice {
     @FXML
     public  Label searchAlert;
     @FXML
-    public void searchBtnOnClick (ActionEvent event) throws IOException{
+    public void searchBtnOnClick (ActionEvent event) throws IOException, SQLException {
         if(searchTxtField.getText().isEmpty()){
             searchAlert.setText("Kindly enter the Student's ID number to get student's information");
 

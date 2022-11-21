@@ -89,7 +89,7 @@ CREATE TABLE `Registrar` (
 CREATE TABLE `Lecturers` (
   `Staff_No` varchar(255) NOT NULL,
   `Name` varchar(255) NOT NULL,
-  `Course_Name` int(11) NOT NULL
+  `Unit_Name` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -160,7 +160,7 @@ INSERT INTO `Courses` (`Course_ID`, `Course_Name`,`Cost_Price`) VALUES
 --
 
 CREATE TABLE `Courses_Offered` (
-  `Course_ID` int(11) NOT NULL,
+  `Course_ID` varchar(255) NOT NULL,
   `Course_Name` varchar(255) NOT NULL,
   `Course_Price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -273,29 +273,44 @@ public Button logoutBtn;
     @FXML
     public TextField unitIDTextField;
     public String unitDesc;
+    private final Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
+    private final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
     @FXML
     public void viewUnitDescBtnOnClick() {
 
+        if(unitIDTextField.getText().isEmpty())
+        {
+            errorAlert.setContentText("Kindly Enter The Unit's Unit Code to view it's Unit description");
+            errorAlert.show();
+        } else {
 
 
-        try {
 
-            Connection connectDB = database.getConnection();
-            String sql1 = "SELECT Unit_Desc FROM `Course_Units` WHERE Unit_Code='"+unitIDTextField.getText()+"'";
-            System.out.println(sql1);
+            try {
+
+                Connection connectDB = database.getConnection();
+                String sql1 = "SELECT Unit_Desc FROM `Course_Units` WHERE Unit_Code='"+unitIDTextField.getText()+"'";
+                System.out.println(sql1);
 
 
-            Statement statement = connectDB.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql1);
-            while (resultSet.next()){
-                unitDesc = resultSet.getString("Unit_Desc");
-                courseDescTextArea.setWrapText(true);
-                courseDescTextArea.setText(unitDesc);
+                Statement statement = connectDB.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql1);
+                System.out.println(resultSet);
+                if (resultSet.next()){
+                    unitDesc = resultSet.getString("Unit_Desc");
+                    courseDescTextArea.setWrapText(true);
+                    courseDescTextArea.setText(unitDesc);
+                }else{
+                    informationAlert.setContentText("The Unit With the above Unit Code Does not Exist");
+                    informationAlert.show();
+
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
+        }
     }
 
     @FXML

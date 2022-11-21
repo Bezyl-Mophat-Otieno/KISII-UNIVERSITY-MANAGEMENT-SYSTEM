@@ -23,23 +23,30 @@ public class CourseDesc {
     public TextField unitIDTextField;
     public String unitDesc;
     private final DBConnection database = new DBConnection();
-
+    private final Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
+    private final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     @FXML
     public void viewUnitDescBtnOnClick() {
+
+        if(unitIDTextField.getText().isEmpty())
+        {
+            errorAlert.setContentText("Kindly Enter Key in Unit Code to view course Description");
+            errorAlert.show();
+        }
+
+
 
         try {
 
             Connection connectDB = database.getConnection();
             String sql1 = "SELECT   Unit_Desc FROM `Course_Units` WHERE Unit_Code='"+unitIDTextField.getText()+"'";
-            System.out.println(sql1);
-
-
             Statement statement = connectDB.createStatement();
             ResultSet resultSet = statement.executeQuery(sql1);
-            while (resultSet.next()){
-                unitDesc = resultSet.getString("Unit_Desc");
-                courseDescTextArea.setWrapText(true);
-                courseDescTextArea.setText(unitDesc);
+            while (resultSet.next()) {
+                System.out.println(resultSet.wasNull());
+                    unitDesc = resultSet.getString("Unit_Desc");
+                    courseDescTextArea.setWrapText(true);
+                    courseDescTextArea.setText(unitDesc);
             }
         }catch (Exception e){
             e.printStackTrace();

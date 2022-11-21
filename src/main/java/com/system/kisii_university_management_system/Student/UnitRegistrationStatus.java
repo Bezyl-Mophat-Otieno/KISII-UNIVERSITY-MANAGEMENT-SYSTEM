@@ -137,4 +137,7 @@ public class UnitRegistrationStatus implements Initializable{
         Platform.runLater(this::initializeUnitStatusTable);
 
     }
+
+    public void printExamCard(ActionEvent event) {
+    }
 }

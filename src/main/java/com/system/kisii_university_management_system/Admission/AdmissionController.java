@@ -76,10 +76,6 @@ public class AdmissionController implements Initializable {
 
     @FXML
     private TextField fieldSearch;
-    @FXML
-    private Label lblAdmissionsID;
-    @FXML
-    private Label lblAdmissionsName;
 
     public void setAdd(){
         setAllEnable();
@@ -132,7 +128,7 @@ public class AdmissionController implements Initializable {
     public void updateStudent() throws SQLException{
         sqlQuery ="Update Student set Std_ID='"+fieldStdID.getText()+"',Std_Name='"+fieldStdName.getText()+"'," +
             "Std_Email='"+fieldStdEmail.getText()+"',Password='"+fieldStdPassword.getText()+"'," +
-            "Course='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
+            "Course_ID='"+fieldStdCourse.getSelectionModel().getSelectedItem()+"'," +
             "YOS='"+ parseInt(fieldYearOfStudy.getText())+"',"
             + "Status='"+fieldStatus.getSelectionModel().getSelectedItem()+"' " +
                 "where Std_ID='"+fieldStdID.getText()+"';";
@@ -191,7 +187,7 @@ public class AdmissionController implements Initializable {
             fieldStdName.setText(result.getString("Std_Name"));
             fieldStdEmail.setText(result.getString("Std_Email"));
             fieldStdPassword.setText(result.getString("Password"));
-            fieldStdCourse.setValue(result.getString("Course"));
+            fieldStdCourse.setValue(result.getString("Course_ID"));
             fieldYearOfStudy.setText(result.getString("YOS"));
             fieldStatus.setValue(result.getString("Status"));
             }
@@ -233,7 +229,7 @@ public class AdmissionController implements Initializable {
         ResultSet result = statement.executeQuery(sqlQuery);
         ObservableList<String> courses = FXCollections.observableArrayList();
         while (result.next()){
-            courses.add(result.getString("courseID"));
+            courses.add(result.getString("course_ID"));
         }
         return courses;
     }
@@ -298,8 +294,7 @@ public class AdmissionController implements Initializable {
         try {
             fieldStdCourse.setItems(getCourses());
             fieldStatus.setItems(getStatus());
-            lblAdmissionsID.setText(getAdmissionDetails().get(0));
-            lblAdmissionsName.setText(getAdmissionDetails().get(1));
+
             setAllDisable();
             getStudents(null);
             StdTable();
@@ -329,7 +324,7 @@ public class AdmissionController implements Initializable {
                     result.getString("Std_Name"),
                     result.getString("Std_Email"),
                     result.getString("Password"),
-                    result.getString("Course"),
+                    result.getString("Course_ID"),
                     result.getInt("YOS"),
                     result.getString("Status")
 

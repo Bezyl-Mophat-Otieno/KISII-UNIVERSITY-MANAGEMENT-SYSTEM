@@ -6,22 +6,23 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Rectangle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.CourseAdvisor.CourseAdvisorDashboard">
-   <top>
-      <AnchorPane prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="searchTxtField" layoutX="274.0" layoutY="107.0" prefHeight="56.0" prefWidth="262.0" promptText="Enter Staff No" />
-            <Button fx:id="searchBtn" layoutX="567.0" layoutY="123.0" mnemonicParsing="false" onAction="#searchBtnOnClick" prefHeight="25.0" prefWidth="147.0" style="-fx-background-color: #045004;" text="SEARCH LECTURER" textFill="WHITE" />
-            <TextField fx:id="staffNoTxtField" layoutX="82.0" layoutY="233.0" prefHeight="40.0" prefWidth="230.0" />
-            <TextField fx:id="lecNameTxtField" layoutX="528.0" layoutY="235.0" prefHeight="37.0" prefWidth="224.0" />
-            <ChoiceBox fx:id="choiceBox" layoutX="345.0" layoutY="325.0" prefHeight="32.0" prefWidth="150.0" />
-            <Button fx:id="addLecturerBtn" layoutX="343.0" layoutY="411.0" mnemonicParsing="false" onAction="#addLecturerBtnOnClick" prefHeight="38.0" prefWidth="154.0" style="-fx-background-color: #045004;" text=" ADD LECTURER" textFill="WHITE" />
-            <Label layoutX="82.0" layoutY="217.0" prefHeight="16.0" prefWidth="121.0" text="Staff No" />
-            <Label layoutX="528.0" layoutY="217.0" prefHeight="16.0" prefWidth="124.0" text="Name" />
-            <Label fx:id="frontEndErrorAlert" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="6.0" prefHeight="16.0" prefWidth="690.0" textFill="#b51010" />
-            <Button fx:id="homeBtn2" layoutX="660.0" layoutY="10.0" mnemonicParsing="false" onAction="#homeBtn2OnClick" prefHeight="24.0" prefWidth="137.0" style="-fx-background-color: #7d0808;" text="Home" textFill="WHITE" />
-         </children>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.CourseAdvisor.CourseAdvisorDashboard">
+   <bottom>
+      <AnchorPane prefHeight="900.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="412.0" layoutX="242.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="356.0" />
+         <TextField fx:id="searchTxtField" layoutX="42.0" layoutY="23.0" prefHeight="56.0" prefWidth="262.0" promptText="Enter Staff No" />
+         <Button fx:id="searchBtn" layoutX="347.0" layoutY="33.0" mnemonicParsing="false" onAction="#searchBtnOnClick" prefHeight="37.0" prefWidth="147.0" style="-fx-background-color: #045004;" text="SEARCH " textFill="WHITE" />
+         <TextField fx:id="staffNoTxtField" layoutX="268.0" layoutY="128.0" prefHeight="40.0" prefWidth="264.0" />
+         <TextField fx:id="lecNameTxtField" layoutX="268.0" layoutY="201.0" prefHeight="43.0" prefWidth="265.0" />
+         <ChoiceBox fx:id="choiceBox" layoutX="313.0" layoutY="288.0" prefHeight="32.0" prefWidth="192.0" />
+         <Button fx:id="addLecturerBtn" layoutX="343.0" layoutY="360.0" mnemonicParsing="false" onAction="#addLecturerBtnOnClick" prefHeight="38.0" prefWidth="154.0" style="-fx-background-color: #045004;" text=" ASSIGN LECTURER" textFill="WHITE" />
+         <Label layoutX="263.0" layoutY="104.0" prefHeight="16.0" prefWidth="121.0" text="Staff No" />
+         <Label layoutX="267.0" layoutY="175.0" prefHeight="16.0" prefWidth="124.0" text="Name" />
+         <Label fx:id="frontEndErrorAlert" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="6.0" prefHeight="16.0" prefWidth="690.0" textFill="#b51010" />
+         <Button fx:id="homeBtn2" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeBtn2OnClick" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #7d0808;" text="Home" textFill="WHITE" />
+         <Label layoutX="313.0" layoutY="263.0" text="Unit Assigned" />
       </AnchorPane>
-   </top>
+   </bottom>
 </BorderPane>

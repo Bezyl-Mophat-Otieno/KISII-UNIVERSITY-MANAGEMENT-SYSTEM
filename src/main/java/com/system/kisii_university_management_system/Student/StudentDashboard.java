@@ -34,7 +34,6 @@ public class StudentDashboard  implements Initializable{
     @FXML
     public  Label courseIDLabel;
 
-//    Alert unitError = new Alert(Alert.AlertType.ERROR);
 
     @FXML
     public Button logoutBtn;
@@ -108,10 +107,11 @@ public class StudentDashboard  implements Initializable{
 
         try {
             Connection connectDB = database.getConnection();
-            String sql1 = "SELECT  Unit_Code , Unit_Name , Unit_Desc , Selected FROM `Course_Units` WHERE Course_ID=("
-                    +"SELECT courseID FROM `Courses` WHERE CourseID=(SELECT Course FROM Student " +
+            String sql1 = "SELECT  Unit_Code , Unit_Name , Unit_Desc , Selected FROM `Course_Units` WHERE Course_ID IN("
+                    +"SELECT Course_ID FROM `Courses` WHERE Course_ID IN(SELECT Course_ID FROM Student " +
                     "WHERE std_ID ='"+studentID+"'"+
                     ")"+")";
+            System.out.println(sql1);
 
             Statement statement = connectDB.createStatement();
             ResultSet resultSet = statement.executeQuery(sql1);
@@ -122,6 +122,7 @@ public class StudentDashboard  implements Initializable{
                         resultSet.getString("Unit_Desc"),
                         resultSet.getString("Selected"));
                 units.add(unit);
+
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -138,6 +139,7 @@ public class StudentDashboard  implements Initializable{
         unitDesc.setCellValueFactory(new PropertyValueFactory<>("unitDesc"));
         selectUnit.setCellValueFactory(new PropertyValueFactory<>("selectUnit"));
         unitsTable.setItems(getUnits());
+
 
 
 
@@ -218,22 +220,14 @@ public class StudentDashboard  implements Initializable{
         alert.showAndWait();
     }
 
-//    public void displayStudentDetails()
-//            throws SQLException {
-//       studentDetails();
-//       nameLabel.setText(name);
-//       courseLabel.setText(course);
-//       courseIDLabel.setText(courseID);
-//       feesPayableLabel.setText(String.valueOf(feesPayable));
-//
-//    }
+
 
     public void studentDetails(String studentID) throws SQLException {
 
 
         Connection connectDB = database.getConnection();
-        String sql = "SELECT Student.Std_Name , Courses.courseName , Courses.courseID , costPrice FROM Student JOIN Courses " +
-                "ON Student.Course = Courses.courseID WHERE Student.Std_ID='"+studentID+"'";
+        String sql = "SELECT Student.Std_Name , Courses.Course_Name , Courses.Course_ID , Courses.Cost_Price FROM Student JOIN Courses " +
+                "ON Student.Course_ID = Courses.Course_ID WHERE Student.Std_ID='"+studentID+"'";
 
 
         try {
@@ -241,9 +235,9 @@ public class StudentDashboard  implements Initializable{
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 nameLabel.setText(resultSet.getString("Std_Name"));
-                courseLabel.setText(resultSet.getString("courseName"));
-                courseIDLabel.setText(resultSet.getString("courseID"));
-                feesPayableLabel.setText(String.valueOf(resultSet.getDouble("costPrice")));
+                courseLabel.setText(resultSet.getString("Course_Name"));
+                courseIDLabel.setText(resultSet.getString("Course_ID"));
+                feesPayableLabel.setText(String.valueOf(resultSet.getDouble("Cost_Price")));
 
             }
         }catch (Exception e){

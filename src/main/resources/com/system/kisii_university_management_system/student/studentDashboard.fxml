@@ -12,96 +12,75 @@
 
 <BorderPane fx:id="mainBorderPane" prefHeight="849.0" prefWidth="1499.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Student.StudentDashboard">
    <right>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                  prefHeight="800.0" prefWidth="1367.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1367.0" BorderPane.alignment="CENTER">
          <Label layoutX="196.0" layoutY="39.0" text="Name">
             <font>
-               <Font name="Abyssinica SIL" size="14.0"/>
+               <Font name="Abyssinica SIL" size="14.0" />
             </font>
          </Label>
          <Label layoutX="517.0" layoutY="36.0" prefHeight="26.0" prefWidth="106.0" text="Course Name">
             <font>
-               <Font size="14.0"/>
+               <Font size="14.0" />
             </font>
          </Label>
-         <Button fx:id="logoutBtn" layoutX="1085.0" layoutY="37.0" mnemonicParsing="false" onAction="#logoutBtnOnClick"
-                 prefHeight="24.0" prefWidth="101.0" style="-fx-border-radius: 100px; -fx-background-color: #7d0808;"
-                 text="Log-Out" textFill="#e8e3e3"/>
-         <Label fx:id="nameLabel" layoutX="244.0" layoutY="41.0" prefHeight="16.0" prefWidth="262.0"
-                textFill="#0c942e"/>
-         <Label fx:id="courseLabel" layoutX="675.0" layoutY="39.0" prefHeight="20.0" prefWidth="185.0"
-                textFill="#0c6f12"/>
+         <Button fx:id="logoutBtn" layoutX="1085.0" layoutY="37.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="24.0" prefWidth="101.0" style="-fx-border-radius: 100px; -fx-background-color: #7d0808;" text="Log-Out" textFill="#e8e3e3" />
+         <Label fx:id="nameLabel" layoutX="244.0" layoutY="41.0" prefHeight="16.0" prefWidth="262.0" textFill="#0c942e" />
+         <Label fx:id="courseLabel" layoutX="675.0" layoutY="39.0" prefHeight="20.0" prefWidth="185.0" textFill="#0c6f12" />
          <Label layoutX="901.0" layoutY="36.0" prefHeight="26.0" prefWidth="105.0" text="Course ID">
             <font>
-               <Font size="14.0"/>
+               <Font size="14.0" />
             </font>
          </Label>
-         <Label fx:id="courseIDLabel" layoutX="1030.0" layoutY="41.0" prefHeight="16.0" prefWidth="48.0"
-                textFill="#057521f6"/>
-         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f3f5" height="69.0" layoutX="936.0" layoutY="516.0"
-                    stroke="#140404" strokeLineCap="ROUND" strokeMiterLimit="14.0" strokeType="INSIDE" strokeWidth="2.0"
-                    width="200.0"/>
-         <Label fx:id="feesPayableLabel" layoutX="971.0" layoutY="538.0" prefHeight="24.0" prefWidth="131.0"
-                textFill="#0e6b0e">
+         <Label fx:id="courseIDLabel" layoutX="1030.0" layoutY="41.0" prefHeight="16.0" prefWidth="48.0" textFill="#057521f6" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f3f5" height="69.0" layoutX="936.0" layoutY="516.0" stroke="#140404" strokeLineCap="ROUND" strokeMiterLimit="14.0" strokeType="INSIDE" strokeWidth="2.0" width="200.0" />
+         <Label fx:id="feesPayableLabel" layoutX="971.0" layoutY="538.0" prefHeight="24.0" prefWidth="131.0" textFill="#0e6b0e">
             <font>
-               <Font name="Abyssinica SIL" size="18.0"/>
+               <Font name="Abyssinica SIL" size="18.0" />
             </font>
          </Label>
          <Label alignment="CENTER" layoutY="18.0" prefHeight="16.0" prefWidth="197.0" text="Menu" textFill="#fcf6f6">
             <font>
-               <Font name="DejaVuMathTeXGyre-Regular" size="20.0"/>
+               <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
             </font>
          </Label>
-         <Label alignment="CENTER" layoutX="143.0" layoutY="146.0" prefHeight="16.0" prefWidth="770.0" text="\\"
-                underline="true"/>
-         <Label fx:id="errorAlert" alignment="CENTER" layoutX="265.0" layoutY="123.0" prefHeight="16.0"
-                prefWidth="482.0" textFill="#d30000"/>
-         <AnchorPane layoutX="187.0" layoutY="94.0" prefHeight="425.0" prefWidth="988.0"
-                     style="-fx-background-color: bwhitelack;">
+         <Label alignment="CENTER" layoutX="143.0" layoutY="146.0" prefHeight="16.0" prefWidth="770.0" text="\\" underline="true" />
+         <Label fx:id="errorAlert" alignment="CENTER" layoutX="265.0" layoutY="123.0" prefHeight="16.0" prefWidth="482.0" textFill="#d30000" />
+         <AnchorPane layoutX="187.0" layoutY="94.0" prefHeight="425.0" prefWidth="988.0" style="-fx-background-color: bwhitelack;">
             <TableView fx:id="unitsTable" layoutX="50.0" layoutY="55.0" prefHeight="328.0" prefWidth="910.0">
                <columns>
-                  <TableColumn fx:id="unitCode" prefWidth="134.0" text="UNIT_CODE"/>
-                  <TableColumn fx:id="unitName" prefWidth="182.0" text="UNIT-NAME"/>
-                  <TableColumn fx:id="unitDesc" prefWidth="505.0" text="UNIT-DESCRIPTION"/>
-                  <TableColumn fx:id="selectUnit" prefWidth="96.0" text="REGISTER"/>
+                  <TableColumn fx:id="unitCode" prefWidth="134.0" text="UNIT_CODE" />
+                  <TableColumn fx:id="unitName" prefWidth="182.0" text="UNIT_NAME" />
+                  <TableColumn fx:id="unitDesc" prefWidth="505.0" text="UNIT_DESCRIPTION" />
+                  <TableColumn fx:id="selectUnit" prefWidth="96.0" text="REGISTER" />
                </columns>
             </TableView>
-            <Label layoutX="437.0" layoutY="21.0" prefHeight="24.0" prefWidth="314.0" text="UNITS FOR THIS SEMESTER"
-                   textFill="#071c2f">
+            <Label layoutX="437.0" layoutY="21.0" prefHeight="24.0" prefWidth="314.0" text="UNITS FOR THIS SEMESTER" textFill="#071c2f">
                <font>
-                  <Font name="Chilanka Regular" size="16.0"/>
+                  <Font name="Chilanka Regular" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="806.0" layoutY="401.0" prefHeight="16.0" prefWidth="125.0" text="FEES PAYABLE"
-                   textFill="#191b19"/>
+            <Label layoutX="806.0" layoutY="401.0" prefHeight="16.0" prefWidth="125.0" text="FEES PAYABLE" textFill="#191b19" />
          </AnchorPane>
-         <CheckBox fx:id="selectAll" layoutX="540.0" layoutY="550.0" mnemonicParsing="false"
-                   onAction="#selectAllOnClick" text="select All"/>
-         <Button fx:id="registerUnitsBtn" layoutX="675.0" layoutY="537.0" mnemonicParsing="false"
-                 onAction="#registerUnitsBtnOnclick" prefHeight="43.0" prefWidth="139.0"
-                 style="-fx-background-color: #045004;" text="Register Units" textFill="#f8f8f8"/>
-         <AnchorPane layoutX="-132.0" layoutY="-6.0" prefHeight="642.0" prefWidth="307.0"
-                     style="-fx-background-color: #071c2f;">
+         <CheckBox fx:id="selectAll" layoutX="540.0" layoutY="550.0" mnemonicParsing="false" onAction="#selectAllOnClick" text="select All" />
+         <Button fx:id="registerUnitsBtn" layoutX="675.0" layoutY="537.0" mnemonicParsing="false" onAction="#registerUnitsBtnOnclick" prefHeight="43.0" prefWidth="139.0" style="-fx-background-color: #071C2F;" text="Register Units" textFill="#f8f8f8" />
+         <AnchorPane layoutX="-132.0" layoutY="-6.0" prefHeight="642.0" prefWidth="307.0" style="-fx-background-color: #071C2F;">
             <children>
                <Label layoutX="180.0" layoutY="101.0" text="Menu " textFill="#f5f5f5">
                   <font>
-                     <Font name="DejaVuMathTeXGyre-Regular" size="20.0"/>
+                     <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
                   </font>
                </Label>
-               <Button fx:id="viewTranscriptBtn" layoutX="148.0" layoutY="164.0" mnemonicParsing="false"
-                       onAction="#viewTranscriptBtnOnClick" prefHeight="24.0" prefWidth="152.0" text="View Transcript"/>
-               <Button fx:id="unitStatusBtn" layoutX="149.0" layoutY="220.0" mnemonicParsing="false"
-                       onAction="#unitStatusBtnOnClick" prefHeight="24.0" prefWidth="149.0" text="Check Unit Status"/>
+               <Button fx:id="viewTranscriptBtn" layoutX="148.0" layoutY="164.0" mnemonicParsing="false" onAction="#viewTranscriptBtnOnClick" prefHeight="24.0" prefWidth="152.0" text="View Transcript" />
+               <Button fx:id="unitStatusBtn" layoutX="149.0" layoutY="220.0" mnemonicParsing="false" onAction="#unitStatusBtnOnClick" prefHeight="24.0" prefWidth="149.0" text="Check Unit Status" />
             </children>
          </AnchorPane>
       </AnchorPane>
    </right>
    <top>
-      <AnchorPane prefHeight="49.0" prefWidth="1200.0" style="-fx-background-color: #071c2f;"
-                  BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="49.0" prefWidth="1200.0" style="-fx-background-color: #071c2f;" BorderPane.alignment="CENTER">
          <Label layoutX="713.0" layoutY="13.0" text="STUDENT DASHBOARD" textFill="#fffafa">
             <font>
-               <Font name="DejaVuMathTeXGyre-Regular" size="20.0"/>
+               <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
             </font>
          </Label>
       </AnchorPane>
