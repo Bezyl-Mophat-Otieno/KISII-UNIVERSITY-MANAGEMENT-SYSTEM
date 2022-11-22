@@ -8,8 +8,6 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.Style;
 import com.itextpdf.layout.element.Paragraph;
 import com.system.kisii_university_management_system.database.DBConnection;
-import com.itextpdf.layout.Style;
-import com.itextpdf.layout.element.Paragraph;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +21,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -98,7 +94,6 @@ public class TranscriptView implements Initializable {
         }
     }
 
-    private final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     private final Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
     private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
@@ -109,9 +104,12 @@ public class TranscriptView implements Initializable {
             informationAlert.setContentText("Check with your department for your results");
             informationAlert.show();
         } else {
-            String path = "/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/" + "Transcript.pdf";
-            PdfWriter transcriptWritter = new PdfWriter(path);
-            PdfDocument transDocument = new PdfDocument(transcriptWritter);
+            // Edit this path to suit your directory
+//            "/home/mugo/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"
+            String path="/home/mugo/Documents/KISII-UNIVERSITY-MANAGEMENT-SYSTEM/src/main/PDF'S/"  // Edit this path to suit your directory
+                    + "Transcript.pdf";
+            PdfWriter transcriptWriter = new PdfWriter(path);
+            PdfDocument transDocument = new PdfDocument(transcriptWriter);
             transDocument.setDefaultPageSize(PageSize.A4);
             transDocument.addNewPage();
             Style pStyles = new Style();
@@ -142,7 +140,8 @@ public class TranscriptView implements Initializable {
             confirmationAlert.setHeaderText("Downloaded");
             confirmationAlert.setContentText("Your Transcript Has Been Downloaded. Ready To Be Printed!");
             confirmationAlert.setResizable(false);
-            Scene scene = ((Node) event.getSource()).getScene();
+            ((Node) event.getSource()).getScene();
+            Scene scene;
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {

@@ -29,7 +29,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -326,7 +325,10 @@ public class BursarController implements Initializable {
             informationAlert.show();
         }
         else{
-            String path="/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"+String.valueOf(feeTable.getId()).replace("/","")+" Fee Statement.pdf";
+            // Edit this path to suit your directory
+//            "/home/mugo/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"
+            String path="/home/mugo/Documents/KISII-UNIVERSITY-MANAGEMENT-SYSTEM/src/main/PDF'S/"  // Edit this path to suit your directory
+                    +String.valueOf(feeTable.getId()).replace("/","")+" Fee Statement.pdf";
             PdfWriter feeWriter = new PdfWriter(path);
             PdfDocument feeDocument = new PdfDocument(feeWriter);
             feeDocument.setDefaultPageSize(PageSize.A4);
@@ -378,8 +380,6 @@ public class BursarController implements Initializable {
         }
     }
 
-    @FXML
-    public Button logoutBtn;
 
     @FXML
     public void logoutBtnOnClick(ActionEvent event) throws IOException {

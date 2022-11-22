@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" prefHeight="849.0" prefWidth="1499.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Student.StudentDashboard">
+<BorderPane fx:id="mainBorderPane" prefHeight="849.0" prefWidth="1499.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Student.StudentDashboard">
    <right>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1367.0" BorderPane.alignment="CENTER">
          <Label layoutX="196.0" layoutY="39.0" text="Name">
@@ -13,20 +18,15 @@
                <Font name="Abyssinica SIL" size="14.0" />
             </font>
          </Label>
-         <Label layoutX="582.0" layoutY="36.0" prefHeight="26.0" prefWidth="106.0" text="Course Name">
+         <Label layoutX="268.0" layoutY="74.0" prefHeight="26.0" prefWidth="101.0" text="Course Name">
             <font>
                <Font size="14.0" />
             </font>
          </Label>
-         <Button fx:id="logoutBtn" layoutX="1085.0" layoutY="37.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="24.0" prefWidth="101.0" style="-fx-border-radius: 100px; -fx-background-color: #7d0808;" text="Log-Out" textFill="#e8e3e3" />
-         <Label fx:id="nameLabel" layoutX="285.0" layoutY="41.0" prefHeight="16.0" prefWidth="221.0" textFill="#0c942e" />
-         <Label fx:id="courseLabel" layoutX="704.0" layoutY="39.0" prefHeight="20.0" prefWidth="185.0" textFill="#0c6f12" />
-         <Label layoutX="901.0" layoutY="36.0" prefHeight="26.0" prefWidth="105.0" text="Course ID">
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Label>
-         <Label fx:id="courseIDLabel" layoutX="1030.0" layoutY="41.0" prefHeight="16.0" prefWidth="48.0" textFill="#057521f6" />
+         <Button fx:id="logoutBtn" layoutX="1206.0" layoutY="12.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="36.0" prefWidth="101.0" style="-fx-border-radius: 100px; -fx-background-color: #7d0808;" text="Log-Out" textFill="#e8e3e3" />
+         <Label fx:id="nameLabel" layoutX="384.0" layoutY="14.0" prefHeight="33.0" prefWidth="377.0" textFill="#0c942e" />
+         <Label fx:id="courseLabel" layoutX="371.0" layoutY="70.0" prefHeight="33.0" prefWidth="208.0" textFill="#0c6f12" />
+         <Label fx:id="courseIDLabel" layoutX="887.0" layoutY="15.0" prefHeight="31.0" prefWidth="139.0" textFill="#057521f6" />
          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f3f5" height="69.0" layoutX="936.0" layoutY="516.0" stroke="#140404" strokeLineCap="ROUND" strokeMiterLimit="14.0" strokeType="INSIDE" strokeWidth="2.0" width="200.0" />
          <Label fx:id="feesPayableLabel" layoutX="971.0" layoutY="538.0" prefHeight="24.0" prefWidth="131.0" textFill="#0e6b0e">
             <font>
@@ -38,7 +38,6 @@
                <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
             </font>
          </Label>
-         <Label alignment="CENTER" layoutX="143.0" layoutY="146.0" prefHeight="16.0" prefWidth="770.0" text="\\" underline="true" />
          <Label fx:id="errorAlert" alignment="CENTER" layoutX="265.0" layoutY="123.0" prefHeight="16.0" prefWidth="482.0" textFill="#d30000" />
          <AnchorPane layoutX="187.0" layoutY="94.0" prefHeight="425.0" prefWidth="988.0" style="-fx-background-color: bwhitelack;">
             <TableView fx:id="unitsTable" layoutX="90.0" layoutY="49.0" prefHeight="328.0" prefWidth="910.0">
@@ -57,18 +56,29 @@
             <Label layoutX="806.0" layoutY="401.0" prefHeight="16.0" prefWidth="125.0" text="FEES PAYABLE" textFill="#191b19" />
          </AnchorPane>
          <CheckBox fx:id="selectAll" layoutX="540.0" layoutY="550.0" mnemonicParsing="false" onAction="#selectAllOnClick" text="select All" />
-         <Button fx:id="registerUnitsBtn" layoutX="675.0" layoutY="537.0" mnemonicParsing="false" onAction="#registerUnitsBtnOnclick" prefHeight="43.0" prefWidth="139.0" style="-fx-background-color: #071C2F;" text="Register Units" textFill="#f8f8f8" />
-         <AnchorPane layoutX="-132.0" layoutY="-6.0" prefHeight="642.0" prefWidth="385.0" style="-fx-background-color: #071C2F;">
-            <children>
-               <Label layoutX="180.0" layoutY="101.0" text="Menu " textFill="#f5f5f5">
-                  <font>
-                     <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />
-                  </font>
-               </Label>
-               <Button fx:id="viewTranscriptBtn" layoutX="148.0" layoutY="164.0" mnemonicParsing="false" onAction="#viewTranscriptBtnOnClick" prefHeight="24.0" prefWidth="152.0" text="View Transcript" />
-               <Button fx:id="unitStatusBtn" layoutX="149.0" layoutY="220.0" mnemonicParsing="false" onAction="#unitStatusBtnOnClick" prefHeight="24.0" prefWidth="149.0" text="Check Unit Status" />
-            </children>
+         <Button layoutX="675.0" layoutY="537.0" mnemonicParsing="false" onAction="#registerUnitsBtnOnclick" prefHeight="43.0" prefWidth="139.0" style="-fx-background-color: #071C2F;" text="Register Units" textFill="#f8f8f8" />
+         <AnchorPane layoutX="-132.0" layoutY="-6.0" prefHeight="642.0" prefWidth="385.0"
+                     style="-fx-background-color: #071C2F;">
+            <Label layoutX="180.0" layoutY="101.0" text="Menu " textFill="#f5f5f5">
+               <font>
+                  <Font name="DejaVuMathTeXGyre-Regular" size="20.0"/>
+               </font>
+            </Label>
+            <Button fx:id="viewTranscriptBtn" layoutX="148.0" layoutY="164.0" mnemonicParsing="false"
+                    onAction="#viewTranscriptBtnOnClick" prefHeight="43.0" prefWidth="152.0" text="View Transcript"/>
+            <Button fx:id="unitStatusBtn" layoutX="150.0" layoutY="241.0" mnemonicParsing="false"
+                    onAction="#unitStatusBtnOnClick" prefHeight="41.0" prefWidth="149.0" text="Check Unit Status"/>
          </AnchorPane>
+         <Label layoutX="265.0" layoutY="17.0" prefHeight="26.0" prefWidth="106.0" text="Student Name">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label layoutX="814.0" layoutY="17.0" prefHeight="26.0" prefWidth="73.0" text="Course ID">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
       </AnchorPane>
    </right>
    <top>

@@ -56,7 +56,13 @@ public class APPController {
             enrollmentLoginVerification();
         } else if (IDtxtField.getText().startsWith("ADM")) {
             admOfficeLoginVerification();
-        }else{
+        } else if (IDtxtField.getText().startsWith("REG")) {
+            registrarLoginVerification();
+        } else if (IDtxtField.getText().startsWith("SCH")) {
+            schoolLoginVerification();
+        }
+
+        else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setContentText("User Category Does Not Exist");
@@ -139,6 +145,54 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
 
     }
 
+    // SCHOOL AUTHENTICATION
+    public  void schoolLoginVerification () throws SQLException {
+        Connection connectDB = database.getConnection();
+        String sql = "SELECT COUNT(1) FROM schooldept WHERE ID ='"+IDtxtField.getText()+"'AND Password ='"+
+                passwordTxtField.getText()+"'";
+
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                if (resultSet.getInt(1)==1){
+                    displaySchoolDashboard();
+                }else {
+                    loginAlerts.setText("Incorrect Email or Password ");
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    // REG LOGIN Authentication
+    public  void registrarLoginVerification () throws SQLException {
+        Connection connectDB = database.getConnection();
+        String sql = "SELECT COUNT(1) FROM registrar WHERE ID ='"+IDtxtField.getText()+"'AND Password ='"+
+                passwordTxtField.getText()+"'";
+
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                if (resultSet.getInt(1)==1){
+                    displayRegistrarDashboard();
+                }else {
+                    loginAlerts.setText("Incorrect Email or Password ");
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
     //CAD LOGIN Authentication
 
@@ -166,7 +220,7 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
     }
 
 
-    //CAD LOGIN Authentication
+    //ENR LOGIN Authentication
 
     public  void enrollmentLoginVerification () throws SQLException {
         Connection connectDB = database.getConnection();
@@ -282,7 +336,7 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
     }
 
 
-    //display course Advisors dashbnoard
+    //display Bursar dashbnoard
     public void displayBursarDashboard() throws IOException {
         Stage stage = (Stage)loginBtn.getScene().getWindow();
         stage.close();
@@ -312,7 +366,7 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
     }
 
 
-    //display course Advisors dashbnoard
+    //display Enrollment dashbnoard
     public void displayEnrollmentDashboard() throws IOException {
         Stage stage = (Stage)loginBtn.getScene().getWindow();
         stage.close();
@@ -327,6 +381,35 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
         newStage.show();
     }
 
+    // display registrar dashboard
+    public void displayRegistrarDashboard() throws IOException {
+        Stage stage = (Stage)loginBtn.getScene().getWindow();
+        stage.close();
+        Stage newStage = new Stage();
+        // create an FXML Loader instance
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                "/com/system/kisii_university_management_system/registrar/registrar.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        newStage.setTitle("Registrar Dashboard");
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+    //display School dashbnoard
+    public void displaySchoolDashboard() throws IOException {
+        Stage stage = (Stage)loginBtn.getScene().getWindow();
+        stage.close();
+        Stage newStage = new Stage();
+        // create an FXML Loader instance
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                "/com/system/kisii_university_management_system/school/school.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        newStage.setTitle("School Dept Dashboard");
+        newStage.setScene(scene);
+        newStage.show();
+    }
 
 //    public void displayAdmissionsOfficeDashboard() throws IOException {
 //

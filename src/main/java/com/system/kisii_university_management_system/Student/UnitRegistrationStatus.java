@@ -24,7 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -132,7 +131,6 @@ public class UnitRegistrationStatus implements Initializable{
 
     }
 
-    private final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     private final Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
     private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
@@ -142,7 +140,10 @@ public class UnitRegistrationStatus implements Initializable{
             informationAlert.setContentText("Units status Pending , For more information inquire from the COD ");
             informationAlert.show();
         } else {
-            String path = "/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/" + "ExamCard.pdf";
+            // Edit this path to suit your directory
+//            "/home/mugo/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"
+            String path="/home/mugo/Documents/KISII-UNIVERSITY-MANAGEMENT-SYSTEM/src/main/PDF'S/"  // Edit this path to suit your directory
+                    + "ExamCard.pdf";
             PdfWriter examCardWritter = new PdfWriter(path);
             PdfDocument examCardDocument = new PdfDocument(examCardWritter);
             examCardDocument.setDefaultPageSize(PageSize.A4);
@@ -181,7 +182,8 @@ public class UnitRegistrationStatus implements Initializable{
             confirmationAlert.setHeaderText("Downloaded");
             confirmationAlert.setContentText("Your Transcript Has Been Downloaded. Ready To Be Printed!");
             confirmationAlert.setResizable(false);
-            Scene scene = ((Node) event.getSource()).getScene();
+            ((Node) event.getSource()).getScene();
+            Scene scene;
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
