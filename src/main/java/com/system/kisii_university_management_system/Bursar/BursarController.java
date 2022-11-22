@@ -326,7 +326,7 @@ public class BursarController implements Initializable {
             informationAlert.show();
         }
         else{
-            String path="/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"+String.valueOf(feeTable.getId()).replace("/","")+" Fee Structure.pdf";
+            String path="/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"+String.valueOf(feeTable.getId()).replace("/","")+" Fee Statement.pdf";
             PdfWriter feeWriter = new PdfWriter(path);
             PdfDocument feeDocument = new PdfDocument(feeWriter);
             feeDocument.setDefaultPageSize(PageSize.A4);

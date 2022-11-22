@@ -35,46 +35,52 @@ public class EnrollmentController implements Initializable {
     private final Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
     private ResultSet result;
     private String sqlQuery;
-    @FXML
-    private TextField fieldStdID;
-    @FXML
-    private  TextField fieldStdName;
-    @FXML
-    private TextField fieldStdEmail;
-    @FXML
-    private PasswordField fieldStdPassword;
-    @FXML
-    private ComboBox<String> fieldStdCourse;
-    @FXML
-    private TextField fieldYearOfStudy;
-    @FXML
-    private ComboBox<String> fieldStatus;
-    @FXML
-    private Button saveBtn;
-    @FXML
-    private Button deleteBtn;
-    @FXML
-    TableView<StudentsTable> stdTableView;
-    @FXML
-    TableColumn<StudentsTable, String> colStdID;
-    @FXML
-    TableColumn<StudentsTable, String> colStdName;
-    @FXML
-    TableColumn<StudentsTable, String> colStdEmail;
-    @FXML
-    TableColumn<StudentsTable, String> colCourse;
-    @FXML
-    TableColumn<StudentsTable, String> colStdPassword;
-    @FXML
-    TableColumn<StudentsTable, Integer> colYear;
-    @FXML
-    TableColumn<StudentsTable, String> colStatus;
 
     @FXML
-    private TextField fieldSearch;
+    public TextField fieldStdID;
+    @FXML
+    public  TextField fieldStdName;
+    @FXML
+    public TextField fieldStdEmail;
+    @FXML
+    public PasswordField fieldStdPassword;
+    @FXML
+    public ComboBox<String> fieldStdCourse;
+    @FXML
+    public TextField fieldYearOfStudy;
+    @FXML
+    public ComboBox<String> fieldStatus;
+    @FXML
+    public Button saveBtn;
+    @FXML
+    public Button deleteBtn;
+    @FXML
+    public TableView<StudentsTable> stdTableView;
+    @FXML
+     public TableColumn<StudentsTable, String> colStdID;
+    @FXML
+    public TableColumn<StudentsTable, String> colStdName;
+    @FXML
+    public TableColumn<StudentsTable, String> colStdEmail;
+    @FXML
+    public   TableColumn<StudentsTable, String> colCourse;
+    @FXML
+    public   TableColumn<StudentsTable, String> colStdPassword;
+    @FXML
+    public  TableColumn<StudentsTable, Integer> colYear;
+    @FXML
+    public TableColumn<StudentsTable, String> colStatus;
+
+    @FXML
+    public TextField fieldSearch;
     @FXML
     private TextField fieldCheckStatus;
 //    public boolean isNewButtonClicked;
+    
+    @FXML
+    public Label lblAdmissionsID;
+    @FXML
+    public Label lblAdmissionsName;
 
     //Save button functionality
     public void save() throws SQLException {
@@ -192,7 +198,7 @@ public class EnrollmentController implements Initializable {
         }
         return courses;
     }
-    private void setAllEnable() {
+    public void setAllEnable() {
         fieldStdID.setDisable(false);
         fieldStdName.setDisable(false);
         fieldStdEmail.setDisable(false);
@@ -214,7 +220,7 @@ public class EnrollmentController implements Initializable {
     }
 
 
-    private void setAllDisable() {
+    public void setAllDisable() {
         fieldStdID.setDisable(true);
         fieldStdName.setDisable(true);
         fieldStdEmail.setDisable(true);
@@ -265,7 +271,7 @@ public class EnrollmentController implements Initializable {
         }
     }
 
-    private ObservableList<StudentsTable> getStudents(String sqlParamsQuery) throws SQLException{
+    public ObservableList<StudentsTable> getStudents(String sqlParamsQuery) throws SQLException{
         Optional<String> sqlParamQuery = Optional.ofNullable(sqlParamsQuery);
         if(sqlParamQuery.isPresent()){
             sqlQuery = sqlParamsQuery;
@@ -308,6 +314,7 @@ public class EnrollmentController implements Initializable {
         String id = "ENR-001";
         sqlQuery = "Select ID, Name from enrollment where ID='"+id+"';";
         result = database.getConnection().createStatement().executeQuery(sqlQuery);
+
         ArrayList<String> admDetails = new ArrayList<>();
         while (result.next()){
             admDetails.add(result.getString("ID"));
