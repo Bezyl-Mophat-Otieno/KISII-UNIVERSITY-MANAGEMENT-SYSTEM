@@ -2,8 +2,6 @@ package com.system.kisii_university_management_system.Student;
 
 import com.system.kisii_university_management_system.database.DBConnection;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -186,6 +184,7 @@ public class StudentDashboard  implements Initializable{
                 try {
                     Statement statement = connectDB.createStatement();
                     statement.executeUpdate(insertData);
+                    unitRegistrationSuccessAlert();
 
                 } catch (Exception e) {
                     unitRegistrationErrorAlert();
@@ -226,8 +225,8 @@ public class StudentDashboard  implements Initializable{
 
 
         Connection connectDB = database.getConnection();
-        String sql = "SELECT Student.Std_Name , Courses.Course_Name , Courses.Course_ID , Courses.Cost_Price FROM Student JOIN Courses " +
-                "ON Student.Course_ID = Courses.Course_ID WHERE Student.Std_ID='"+studentID+"'";
+        String sql = "SELECT Student.Std_Name , Courses.courseName , Courses.Course_ID , Courses.costPrice FROM Student" +
+            " JOIN Courses ON Student.Course_ID = Courses.Course_ID WHERE Student.Std_ID='"+studentID+"'";
 
 
         try {
@@ -235,9 +234,9 @@ public class StudentDashboard  implements Initializable{
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 nameLabel.setText(resultSet.getString("Std_Name"));
-                courseLabel.setText(resultSet.getString("Course_Name"));
+                courseLabel.setText(resultSet.getString("courseName"));
                 courseIDLabel.setText(resultSet.getString("Course_ID"));
-                feesPayableLabel.setText(String.valueOf(resultSet.getDouble("Cost_Price")));
+                feesPayableLabel.setText(String.valueOf(resultSet.getDouble("costPrice")));
 
             }
         }catch (Exception e){

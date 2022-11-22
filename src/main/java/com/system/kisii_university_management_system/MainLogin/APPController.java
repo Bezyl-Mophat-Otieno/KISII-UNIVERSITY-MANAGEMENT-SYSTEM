@@ -17,7 +17,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+
 
 public class APPController {
     @FXML
@@ -85,7 +85,7 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
 
             while (resultSet1.next()){
                 if (resultSet1.getString(1).equals("active")  || resultSet1.getString(1).equals("inactive") ){
-                    System.out.println(resultSet1.getString(1)=="active");
+                    System.out.println(resultSet1.getString(1).equals("active"));
 
                     String sql = "SELECT COUNT(1) FROM Student WHERE Std_ID ='"+IDtxtField.getText()+"'AND Password ='"+
                 passwordTxtField.getText()+"'";
@@ -222,7 +222,7 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
 
 
         Connection connectDB = database.getConnection();
-        String sql = "SELECT Student.Std_Name , Courses.Course_Name , Courses.Course_ID , Courses.Cost_Price FROM Student JOIN Courses " +
+        String sql = "SELECT Student.Std_Name , Courses.courseName , Courses.Course_ID , Courses.costPrice FROM Student JOIN Courses " +
             "ON Student.Course_ID = Courses.Course_ID WHERE Student.Std_ID='"+IDtxtField.getText()+"'";
 
 
