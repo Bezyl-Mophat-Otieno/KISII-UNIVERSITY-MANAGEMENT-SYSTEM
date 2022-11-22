@@ -12,14 +12,13 @@ module com.system.kisii_university_management_system {
     requires forms;
     requires kernel;
     requires io;
-    exports com.system.kisii_university_management_system;
     //Main Login
     exports com.system.kisii_university_management_system.MainLogin;
     opens com.system.kisii_university_management_system.MainLogin to javafx.fxml;
     //Admission
     exports com.system.kisii_university_management_system.Admission;
     opens com.system.kisii_university_management_system.Admission to javafx.fxml;
-    //Bursar
+//Bursar
     exports com.system.kisii_university_management_system.Bursar;
     opens com.system.kisii_university_management_system.Bursar to javafx.fxml;
     //Enrollment

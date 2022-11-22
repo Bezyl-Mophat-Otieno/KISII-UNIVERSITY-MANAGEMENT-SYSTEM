@@ -1,5 +1,12 @@
 package com.system.kisii_university_management_system.Student;
 
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.Style;
+import com.itextpdf.layout.element.Paragraph;
 import com.system.kisii_university_management_system.database.DBConnection;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -8,23 +15,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.itextpdf.io.font.constants.StandardFonts.TIMES_BOLD;
 
 public class UnitRegistrationStatus implements Initializable{
     @FXML
@@ -97,22 +107,6 @@ public class UnitRegistrationStatus implements Initializable{
     @FXML
     public void homeBtnOnClick (ActionEvent event) throws IOException, SQLException {
 //
-//        APPController appController = new APPController();
-//        appController.studentDetails();
-//        Stage stage = (Stage)homeBtn.getScene().getWindow();
-//        stage.close();
-//        Stage newStage = new Stage();
-//        // create an FXML Loader instance
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("studentDashboard.fxml"));
-//        Parent root = loader.load();
-//        //Creating an instance of StudentDashboard
-//        StudentDashboard studentDashboard= loader.getController();
-//        studentDashboard.getStudentIDtxtField(studentID);
-//        studentDashboard.displayStudentDetails(name,course,courseID,feesPayable);
-//        Scene scene = new Scene(root);
-//        newStage.setTitle("Student Dashboard");
-//        newStage.setScene(scene);
-//        newStage.show();
 
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
@@ -138,6 +132,91 @@ public class UnitRegistrationStatus implements Initializable{
 
     }
 
-    public void printExamCard(ActionEvent event) {
+    private final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+    private final Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
+    private final Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+
+    public void printExamCard(ActionEvent event) throws IOException, SQLException {
+
+        if (unitStatusTable.getItems().size() == 0) {
+            informationAlert.setContentText("Units status Pending , For more information inquire from the COD ");
+            informationAlert.show();
+        } else {
+            String path = "/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/" + "ExamCard.pdf";
+            PdfWriter examCardWritter = new PdfWriter(path);
+            PdfDocument examCardDocument = new PdfDocument(examCardWritter);
+            examCardDocument.setDefaultPageSize(PageSize.A4);
+            examCardDocument.addNewPage();
+            Style pStyles = new Style();
+            pStyles.setFont(PdfFontFactory.createFont(TIMES_BOLD))
+                    .setFontSize(12);
+
+
+            Document examCardDoc = new Document(examCardDocument);
+
+            String examCardHeader = "\t\t Exam Card \n" +
+                    "============================================================================\n" +
+                    "Student Registration Number:\t\t " + studentID + "\n\n" +
+                    "Unit Code:\t\t\t\t\t\t\t\t\t" + "Unit Name:\t\t\t\t\t\t\t\t\t" +"\n" +
+                    "============================================================================\n" +
+                    "\t\t\t\t\t\t\t\t\t" + "\t\t\t\t\t\t\t\t\t" + "\n\n";
+            Paragraph examCardParagraph1 = new Paragraph(examCardHeader).addStyle(pStyles);
+            examCardDoc.add(examCardParagraph1);
+            for (UnitStatus unitStatus: unitStatusTable.getItems()) {
+
+                if(unitStatus.getUnitsStatus().equals("approved")){
+
+                    String cardtData = "\t\t\t\t\t\t\t\t\t" + unitStatus.getUnitCode() + "\t\t\t\t\t\t\t\t\t"+unitStatus.getUnitName() ;
+                    Paragraph examCardParagraph2 = new Paragraph(cardtData).addStyle(pStyles);
+                    examCardDoc.add(examCardParagraph2);
+
+                } else{
+                    informationAlert.setContentText("Units status Pending , For more information inquire from the COD ");
+                    informationAlert.show();
+                }
+
+            }
+            examCardDoc.close();
+            confirmationAlert.setTitle("Print");
+            confirmationAlert.setHeaderText("Downloaded");
+            confirmationAlert.setContentText("Your Transcript Has Been Downloaded. Ready To Be Printed!");
+            confirmationAlert.setResizable(false);
+            Scene scene = ((Node) event.getSource()).getScene();
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    PrinterJob job = PrinterJob.createPrinterJob();
+
+                    Stage stage = (Stage) homeBtn.getScene().getWindow();
+                    stage.close();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                            "/com/system/kisii_university_management_system/student/studentDashboard.fxml"));
+                    Parent root = fxmlLoader.load();
+                    scene = new Scene(root);
+                    StudentDashboard studentDashboard = fxmlLoader.getController();
+                    studentDashboard.getStudentIDtxtField(studentID);
+                    Stage newstage = new Stage();
+                    newstage.setScene(scene);
+                    newstage.show();
+
+                    if (job == null) {
+//                        errorAlert.setContentText("No printers Found!");
+//                        errorAlert.show();
+                    } else {
+                        boolean proceed = job.showPrintDialog(scene.getWindow());
+                        if (proceed) {
+                            if (job.printPage(unitStatusTable)) {
+                                job.endJob();
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+
+
     }
 }
