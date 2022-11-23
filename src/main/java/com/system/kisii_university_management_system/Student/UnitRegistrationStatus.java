@@ -53,7 +53,7 @@ public class UnitRegistrationStatus implements Initializable{
 
     ObservableList<UnitStatus> unitStatuses = FXCollections.observableArrayList();
     String studentID;
-    
+
 
     //Passing the student ID from the students Dashboard
     public void getStudentID(String studentIdentification){
@@ -139,7 +139,7 @@ public class UnitRegistrationStatus implements Initializable{
     public void printExamCard(ActionEvent event) throws IOException, SQLException {
 
         if (unitStatusTable.getItems().size() == 0) {
-            informationAlert.setContentText("Units status Pending , For more information inquire from the COD ");
+            informationAlert.setContentText("You currently have not registered for any unit  ");
             informationAlert.show();
         } else {
             String path = "/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/" + "ExamCard.pdf";
@@ -163,24 +163,14 @@ public class UnitRegistrationStatus implements Initializable{
             Paragraph examCardParagraph1 = new Paragraph(examCardHeader).addStyle(pStyles);
             examCardDoc.add(examCardParagraph1);
             for (UnitStatus unitStatus: unitStatusTable.getItems()) {
-
-                if(unitStatus.getUnitsStatus().equals("approved")){
-
                     String cardtData = "\t\t\t\t\t\t\t\t\t" + unitStatus.getUnitCode() + "\t\t\t\t\t\t\t\t\t"+unitStatus.getUnitName() ;
                     Paragraph examCardParagraph2 = new Paragraph(cardtData).addStyle(pStyles);
                     examCardDoc.add(examCardParagraph2);
 
-                } else{
-                    informationAlert.setContentText("Units status Pending , For more information inquire from the COD ");
-                    informationAlert.show();
-                }
 
             }
+            confirmationAlert.setContentText("Your Exam Card has been successfully downlaoded");
             examCardDoc.close();
-            confirmationAlert.setTitle("Print");
-            confirmationAlert.setHeaderText("Downloaded");
-            confirmationAlert.setContentText("Your Transcript Has Been Downloaded. Ready To Be Printed!");
-            confirmationAlert.setResizable(false);
             Scene scene = ((Node) event.getSource()).getScene();
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.isPresent()) {

@@ -14,7 +14,7 @@
                </columns>
            </TableView>
            <Button fx:id="homeBtn" layoutX="1039.0" layoutY="53.0" mnemonicParsing="false" onAction="#homeBtnOnClick" prefHeight="30.0" prefWidth="122.0" style="-fx-background-color: #7d0808;" text="HOME" textFill="#f2efef" />
-         <Button fx:id="examCard" layoutX="624.0" layoutY="365.0" mnemonicParsing="false" onAction="#printExamCard" prefHeight="38.0" prefWidth="158.0" style="-fx-background-color: #045004;" text="Print Exam Card" textFill="WHITE" />
+         <Button fx:id="examCard" layoutX="565.0" layoutY="333.0" mnemonicParsing="false" onAction="#printExamCard" prefHeight="38.0" prefWidth="158.0" style="-fx-background-color: #045004;" text="Print Exam Card" textFill="WHITE" />
        </AnchorPane>
    </center>
 </BorderPane>

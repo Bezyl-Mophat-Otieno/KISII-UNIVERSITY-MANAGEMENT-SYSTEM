@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Enrollment.EnrollmentController">
+<AnchorPane prefHeight="680.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Enrollment.EnrollmentController">
     <BorderPane layoutX="-12.0" prefHeight="833.0" prefWidth="1187.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
             <AnchorPane style="-fx-background-color: #03013EFF;" BorderPane.alignment="CENTER">
@@ -43,7 +30,7 @@
                         </font>
                     </Text>
                     <Separator layoutX="15.0" layoutY="101.0" prefHeight="19.0" prefWidth="343.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="797.0" AnchorPane.topAnchor="101.0" />
-                    <GridPane layoutX="14.0" layoutY="113.0" prefHeight="300.0" prefWidth="340.0">
+                    <GridPane layoutX="14.0" layoutY="96.0" prefHeight="406.0" prefWidth="340.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="99.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="241.0" />
@@ -64,20 +51,20 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course" GridPane.rowIndex="4" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year Of Study" GridPane.rowIndex="5" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="83.0" GridPane.rowIndex="6" />
-                        <TextField fx:id="fieldStdID" prefHeight="58.0" prefWidth="241.0" promptText="Enter ID" GridPane.columnIndex="1" />
+                        <TextField fx:id="fieldStdID" prefHeight="81.0" prefWidth="241.0" promptText="Enter ID" GridPane.columnIndex="1" />
                         <TextField fx:id="fieldStdName" prefHeight="86.0" prefWidth="241.0" promptText="Enter Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <PasswordField fx:id="fieldStdPassword" prefHeight="59.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <PasswordField fx:id="fieldStdPassword" prefHeight="78.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="fieldStdEmail" prefHeight="65.0" prefWidth="241.0" promptText="Enter Email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <ComboBox fx:id="fieldStdCourse" prefHeight="42.0" prefWidth="243.0" promptText="Courses" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="fieldYearOfStudy" prefHeight="40.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <ComboBox fx:id="fieldStatus" prefHeight="37.0" prefWidth="241.0" promptText="Status" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="fieldStatus" prefHeight="82.0" prefWidth="241.0" promptText="Status" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     </GridPane>
-                    <Button fx:id="saveBtn" layoutX="94.0" layoutY="489.0" mnemonicParsing="false" onAction="#save" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: #045004FF;" text="Save" textFill="WHITE" />
-                    <Button fx:id="deleteBtn" layoutX="256.0" layoutY="489.0" mnemonicParsing="false" onAction="#cancel" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #045004FF;" text="Cancel" textFill="WHITE" />
+                    <Button fx:id="saveBtn" layoutX="94.0" layoutY="517.0" mnemonicParsing="false" onAction="#save" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: #045004FF;" text="Save" textFill="WHITE" />
+                    <Button fx:id="deleteBtn" layoutX="256.0" layoutY="516.0" mnemonicParsing="false" onAction="#cancel" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #045004FF;" text="Cancel" textFill="WHITE" />
                     <AnchorPane layoutX="381.0">
                         <Button layoutX="6.0" layoutY="26.0" mnemonicParsing="false" onAction="#refresh" prefHeight="32.0" prefWidth="86.0" style="-fx-background-color: #045004FF;" text="Refresh" textFill="WHITE" />
                   <Button layoutX="121.0" layoutY="28.0" mnemonicParsing="false" onAction="#getListOfGraduants" prefHeight="29.0" prefWidth="179.0" style="-fx-background-color: #045004FF;" text="Get List Of Graduants" textFill="WHITE" />
-                        <Button layoutX="585.0" layoutY="27.0" mnemonicParsing="false" onAction="#searchStudent" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #045004FF;" text="Search" textFill="WHITE" />
+                        <Button layoutX="584.0" layoutY="19.0" mnemonicParsing="false" onAction="#searchStudent" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #045004FF;" text="Search" textFill="WHITE" />
                         <TextField fx:id="fieldSearch" layoutX="335.0" layoutY="10.0" prefHeight="50.0" prefWidth="226.0" promptText="Search By Student ID" />
                         <TableView fx:id="stdTableView" layoutX="-5.0" layoutY="83.0" prefHeight="352.0" prefWidth="946.0">
                             <columns>
