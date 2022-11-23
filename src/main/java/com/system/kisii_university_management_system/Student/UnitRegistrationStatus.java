@@ -142,7 +142,7 @@ public class UnitRegistrationStatus implements Initializable{
         } else {
             // Edit this path to suit your directory
 //            "/home/mugo/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S/"
-            String path="/home/mugo/Documents/KISII-UNIVERSITY-MANAGEMENT-SYSTEM/src/main/PDF'S/"  // Edit this path to suit your directory
+            String path="/home/mophat/IdeaProjects/KISII UNIVERSITY MANAGEMENT SYSTEM/src/main/PDF'S"  // Edit this path to suit your directory
                     + "ExamCard.pdf";
             PdfWriter examCardWritter = new PdfWriter(path);
             PdfDocument examCardDocument = new PdfDocument(examCardWritter);
