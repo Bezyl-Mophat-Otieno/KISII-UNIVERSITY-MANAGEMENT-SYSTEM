@@ -86,10 +86,24 @@ CREATE TABLE `Registrar` (
 -- Table structure for table `Lecturers`
 --
 
-CREATE TABLE `Lecturers` (
-  `Staff_No` varchar(255) NOT NULL,
+CREATE TABLE `lecturer` (
+  `ID` varchar(150) NOT NULL PRIMARY KEY,
+  `Name` varchar(100) NOT NULL,
+  `Email` varchar(64) NOT NULL,
+  `Password` varchar(150) NOT NULL DEFAULT 'password'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `lecturer` (`ID`, `Name`, `Email`, `Password`) VALUES
+('LEC-001', 'Ms. Vera Kwamboka', 'lec001@kisiiuniversity.ac.ke', 'LEC-001'),
+('LEC-013', 'Mr. Alex Nyandego', 'lec013@kisiiuniversity.ac.ke', 'LEC-013'),
+('LEC-054', 'Dr. Alfred Mutua', 'lec054@kisiiuniversity.ac.ke', 'LEC-054'),
+('LEC-106', 'Mr. Rasulu Abdek', 'lec106@kisiiuniversity.ac.ke', 'LEC-106');
+
+CREATE TABLE `assigned_units` (
+  `ID` varchar(255) NOT NULL,
   `Name` varchar(255) NOT NULL,
-  `Unit_Name` int(11) NOT NULL
+  `Unit_Code` varchar(255) NOT NULL,
+  FOREIGN KEY(ID) REFERENCES lecturer(ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -224,11 +238,9 @@ INSERT INTO `Course_Units` (`Course_ID`, `Unit_Code`, `Unit_Name`, `Unit_Desc`, 
 
 ('SOEN', 'COMS101', 'Communication skills ', 'Communication skills for software engineers.', NULL),
 ('SOEN', 'COMP201', 'Operating systems ', 'Types of Operating Systems, fundamentals, and compiler construction', NULL),
-('COMPSCI', 'CS000', 'Data  Structures and Algorithms.', 'Through Efficient Data structuring and algorithm consumption
-Systems of high quality in terms of performance can  be developed.', NULL),
+('COMPSCI', 'CS000', 'Data  Structures and Algorithms.', 'Through Efficient Data structuring and algorithm consumption Systems of high quality in terms of performance can  be developed.', NULL),
 
-('JOURN', 'JOURN000', 'Interview Criteria and Best practices. ', 'The Unit describes the various ways in which interviews
-should be carried out for betterment of user Experience.\r\n ', NULL),
+('JOURN', 'JOURN000', 'Interview Criteria and Best practices. ', 'The Unit describes the various ways in which interviews should be carried out for betterment of user Experience.\r\n ', NULL),
 ('JOURN', 'COM101', 'Broadcast Journalism ', 'How broadcast journalism affects method of information delivery', NULL),
 ('JOURN', 'MEDIA111', 'Telecommunications ', 'The units talks about the various technology used in tele-engineering', NULL),
 

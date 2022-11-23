@@ -223,11 +223,11 @@ public Button logoutBtn;
     public ObservableList<String> getCourses() throws SQLException{
         Connection connection = database.getConnection();
         Statement statement = connection.createStatement();
-        String sqlQuery = "Select * from Courses;";
+        String sqlQuery = "Select * from Course_Units;";
         ResultSet result = statement.executeQuery(sqlQuery);
         ObservableList<String> courses = FXCollections.observableArrayList();
         while (result.next()){
-            courses.add(result.getString("courseID"));
+            courses.add(result.getString("Unit_Code"));
         }
         return courses;
     }
@@ -345,25 +345,47 @@ public Button logoutBtn;
     public void addLecturerBtnOnClick() throws SQLException {
 
             Connection connectDB = database.getConnection();
+            Statement statement = connectDB.createStatement();
+            String searchLecturerUnit = "Select ID, Unit_Code from assigned_units where ID='"+staffNoTxtField.getText()+"' " +
+                    "and Unit_Code='"+choiceBox.getValue()+"';";
 
-            String insertData = "INSERT INTO `Lecturers`(`Staff_No`,`Name`,`Course_Name`) VALUES " +
+            String insertData = "INSERT INTO `assigned_units`(`ID`,`Name`,`Unit_Code`) VALUES " +
                     "('" + staffNoTxtField.getText() + "','" + lecNameTxtField.getText() + "','" + choiceBox.getValue() + "')";
             try {
-                if (staffNoTxtField.getText() .isEmpty() || lecNameTxtField.getText() .isEmpty() || choiceBox.getValue() .isEmpty()) {
+                if (staffNoTxtField.getText().isEmpty() || lecNameTxtField.getText().isEmpty() ||
+                        choiceBox.getSelectionModel().isEmpty()) {
 
                     frontEndErrorAlert.setText("Kindly Make Sure All fields are Filled ! ");
 
 
                 } else {
+                    String searchLecturer = "Select * from lecturer where ID='"+staffNoTxtField.getText()+"';";
+                    ResultSet lecturer = statement.executeQuery(searchLecturer);
+                    if(!lecturer.next()){
+                        frontEndErrorAlert.setText("No Lecturer With ID: " + staffNoTxtField.getText()+ " Exists!");
+                    }
+                    else{
+                        ResultSet lecturerUnit =  statement.executeQuery(searchLecturerUnit);
+                        if(lecturerUnit.next()){
+                          frontEndErrorAlert.setText("Lecturer ID: " +staffNoTxtField.getText()
+                                  + "Has Already Been Assigned Unit Code: "
+                                        + choiceBox.getValue());
 
-                    Statement statement = connectDB.createStatement();
-                    statement.executeUpdate(insertData);
-                    registrationSuccessAlert();
+                        }
+                        else{
+                                statement.executeUpdate(insertData);
+                                registrationSuccessAlert();
+                        }
+                    }
+
+
+
+
 
 
                 }
             } catch (Exception e) {
-                frontEndErrorAlert.setText("Make sure your data types Match those stored in the database");
+                frontEndErrorAlert.setText("An Error Has Occured!");
                 e.printStackTrace();
             }
         }
