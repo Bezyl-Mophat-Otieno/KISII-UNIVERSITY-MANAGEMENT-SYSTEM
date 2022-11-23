@@ -159,17 +159,16 @@ public class StudentDashboard  implements Initializable{
     }
 
 
-
-    // Register selected units
-    public void  registerUnitsBtnOnclick() throws SQLException {
+   @FXML
+   // Register selected units
+    public void  registerUnitsBtnOnclick(ActionEvent event) throws SQLException {
         Integer countNumberOfUnitsRegistered  = 0;
         unitTableRecords = unitsTable.getItems();
         Integer numberOfRecords = unitTableRecords.size();
         Connection connectDB = database.getConnection();
+
         for (Units unitTableRecord : unitTableRecords) {
-            System.out.println(unitTableRecord.getUnitCode());
             if (unitTableRecord.getSelectUnit().isSelected()) {
-                System.out.println(unitTableRecord.getUnitCode());
                 String checkRegisteredUnit = "Select Std_ID, Unit_Name from Register_Units " +
                         "where Std_ID='"+studentID+"' and Unit_Code='"+unitTableRecord.getUnitCode()+"'";
                 boolean isRegistered = connectDB.createStatement().executeQuery(checkRegisteredUnit).next();
@@ -225,17 +224,26 @@ public class StudentDashboard  implements Initializable{
 
 
         Connection connectDB = database.getConnection();
-        String sql = "SELECT Student.Std_Name , Courses.courseName , Courses.Course_ID , Courses.costPrice FROM Student" +
+        String sql = "SELECT Student.Std_Name , Courses.Course_Name , Courses.Course_ID , Courses.Cost_Price FROM Student" +
             " JOIN Courses ON Student.Course_ID = Courses.Course_ID WHERE Student.Std_ID='"+studentID+"'";
 
-
         try {
+            String sql1 = "SELECT * FROM `billstatement` WHERE Std_ID='"+studentID+"'";
             Statement statement = connectDB.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
+            Statement statement1 = connectDB.createStatement();
+            ResultSet resultSet1 = statement1.executeQuery(sql1);
+
             while (resultSet.next()){
                 nameLabel.setText(resultSet.getString("Std_Name"));
-                courseLabel.setText(resultSet.getString("courseName"));
+                courseLabel.setText(resultSet.getString("course_Name"));
                 courseIDLabel.setText(resultSet.getString("Course_ID"));
+                if(resultSet1.next()){
+                    feesPayableLabel.setText(String.valueOf(resultSet1.getDouble("feeAmount")));
+                } else{
+                    System.out.println("Something went wrong");
+                }
+
                 feesPayableLabel.setText(String.valueOf(resultSet.getDouble("costPrice")));
 
             }
@@ -263,10 +271,7 @@ public class StudentDashboard  implements Initializable{
 
     }
 
-    public void viewCurricullumBtnOnClick(ActionEvent event) throws IOException{
 
-
-    }
 
     public void unitStatusBtnOnClick(ActionEvent event) throws IOException {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -276,7 +276,7 @@ private final Alert errorAlerts = new Alert(Alert.AlertType.ERROR);
 
 
         Connection connectDB = database.getConnection();
-        String sql = "SELECT Student.Std_Name , Courses.courseName , Courses.Course_ID , Courses.costPrice FROM Student JOIN Courses " +
+        String sql = "SELECT Student.Std_Name , Courses.Course_Name , Courses.Course_ID , Courses.Cost_Price FROM Student JOIN Courses " +
             "ON Student.Course_ID = Courses.Course_ID WHERE Student.Std_ID='"+IDtxtField.getText()+"'";
 
 
