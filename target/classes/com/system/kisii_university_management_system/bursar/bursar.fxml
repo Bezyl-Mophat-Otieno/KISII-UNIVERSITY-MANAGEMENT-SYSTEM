@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
+<<<<<<< HEAD
 <AnchorPane prefHeight="680.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Bursar.BursarController">
     <BorderPane layoutX="-12.0" prefHeight="898.0" prefWidth="1270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+=======
+<AnchorPane prefHeight="680.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.system.kisii_university_management_system.Bursar.BursarController">
+    <BorderPane layoutX="-12.0" prefHeight="680.0" prefWidth="1157.0">
+>>>>>>> 25503719f679310ce578a88899bd64c9c753927e
         <top>
-            <AnchorPane prefHeight="88.0" prefWidth="1184.0" style="-fx-background-color: #03013EFF;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="88.0" prefWidth="1184.0" style="-fx-background-color: #071c2f;" BorderPane.alignment="CENTER">
                 <Label fx:id="lblAdmissionsID" layoutX="440.0" layoutY="24.0" prefHeight="41.0" prefWidth="124.0">
                     <font>
                         <Font size="22.0" />
@@ -39,16 +33,27 @@
             </AnchorPane>
         </top>
         <center>
+<<<<<<< HEAD
             <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                 <AnchorPane prefHeight="651.0" prefWidth="1130.0">
                     <Button layoutX="135.0" layoutY="27.0" mnemonicParsing="false" onAction="#editStudent" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #045004;" text="Edit" textFill="WHITE" />
                     <Button fx:id="deleteBtn" layoutX="245.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteStudent" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #045004;" text="Delete" textFill="WHITE" />
+=======
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="740.0" prefWidth="1235.0" />
+                <AnchorPane prefHeight="651.0" prefWidth="1130.0">
+                    <Button layoutX="135.0" layoutY="27.0" mnemonicParsing="false" onAction="#editStudent" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #045004;" text="Edit" textFill="WHITE" />
+>>>>>>> 25503719f679310ce578a88899bd64c9c753927e
                     <Text layoutX="33.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Fee Details" wrappingWidth="302.7294921875">
                         <font>
                             <Font size="19.0" />
                         </font>
                     </Text>
+<<<<<<< HEAD
                     <Separator layoutX="14.0" layoutY="94.0" prefHeight="19.0" prefWidth="1268.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="94.0" />
+=======
+                    <Separator layoutX="14.0" layoutY="94.0" prefHeight="19.0" prefWidth="343.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="798.0" AnchorPane.topAnchor="94.0" />
+>>>>>>> 25503719f679310ce578a88899bd64c9c753927e
                     <GridPane layoutX="15.0" layoutY="126.0" prefHeight="261.0" prefWidth="340.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="99.0" />
@@ -64,6 +69,7 @@
                         <TextField fx:id="fieldStdFeeAmount" prefHeight="53.0" prefWidth="241.0" promptText="Fee Amount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </GridPane>
                     <Button fx:id="saveBtn" layoutX="117.0" layoutY="391.0" mnemonicParsing="false" onAction="#save" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: #045004FF;" text="Save" textFill="WHITE" />
+<<<<<<< HEAD
                     <Button fx:id="cancelBtn" layoutX="273.0" layoutY="391.0" mnemonicParsing="false" onAction="#cancel" prefHeight="32.0" prefWidth="82.0" style="-fx-background-color: #045004FF;" text="Cancel" textFill="WHITE" />
                     <AnchorPane layoutX="381.0" prefHeight="487.0" prefWidth="804.0">
                     <AnchorPane layoutY="7.0" prefHeight="741.0" prefWidth="804.0" style="-fx-background-image: 7D0808;">
@@ -86,6 +92,37 @@
                     </AnchorPane>
                     <Separator layoutX="375.0" orientation="VERTICAL" prefHeight="653.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="0.0" />
                     <Button layoutX="26.0" layoutY="27.0" mnemonicParsing="false" onAction="#setAdd" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #045004;" text="Update" textFill="WHITE" />
+=======
+                    <Button fx:id="deleteBtn" layoutX="273.0" layoutY="391.0" mnemonicParsing="false" onAction="#cancel" prefHeight="32.0" prefWidth="82.0" style="-fx-background-color: #045004FF;" text="Cancel" textFill="WHITE" />
+                    <AnchorPane layoutX="381.0" prefHeight="487.0" prefWidth="804.0">
+                        <Button layoutX="24.0" layoutY="27.0" mnemonicParsing="false" onAction="#refresh" prefHeight="32.0" prefWidth="86.0" style="-fx-background-color: #045004FF;" text="Refresh" textFill="WHITE" />
+                        <Button layoutX="535.0" layoutY="27.0" mnemonicParsing="false" onAction="#searchStudent" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #045004FF;" text="Search" textFill="WHITE" />
+                    <AnchorPane layoutX="381.0" prefHeight="741.0" prefWidth="804.0" style="-fx-background-image: 7D0808;">
+                        <Button layoutX="24.0" layoutY="27.0" mnemonicParsing="false" onAction="#refresh" prefHeight="32.0" prefWidth="86.0" style="-fx-background-color: #045004;" text="Refresh" textFill="WHITE" />
+                        <Button layoutX="521.0" layoutY="27.0" mnemonicParsing="false" onAction="#searchStudent" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #045004;" text="Search" textFill="WHITE" />
+                        <TextField fx:id="fieldSearch" layoutX="308.0" layoutY="17.0" prefHeight="52.0" prefWidth="192.0" promptText="Search By Student ID" />
+                        <TableView fx:id="feeTableView" layoutX="-5.0" layoutY="83.0" prefHeight="660.0" prefWidth="809.0">
+                            <columns>
+                                <TableColumn fx:id="colStdID" prefWidth="111.0" text="ID" />
+                                <TableColumn fx:id="colStdName" prefWidth="241.0" text="Name" />
+                                <TableColumn fx:id="colStdEmail" minWidth="0.0" prefWidth="299.0" text="Email" />
+                        <TableColumn fx:id="colCourse" prefWidth="101.0" text="Course" />
+                                <TableColumn fx:id="colYear" minWidth="0.0" prefWidth="62.0" text="YOS" />
+                        <TableColumn fx:id="colFeeAmount" prefWidth="101.0" text="Fees" />
+                            </columns>
+                        </TableView>
+                  <Button layoutX="166.0" layoutY="27.0" mnemonicParsing="false" onAction="#printFeeStatement" prefHeight="32.0" prefWidth="86.0" style="-fx-background-color: #045004FF;" text="Print" textFill="WHITE" />
+                         <Button fx:id="logoutBtn" layoutX="637.0" layoutY="25.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: #7D0808FF;" text="Logout" textFill="#fff8f8" />
+                    </AnchorPane>
+                    <Separator layoutX="375.0" orientation="VERTICAL" prefHeight="653.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="0.0" />
+                    <Button layoutX="26.0" layoutY="27.0" mnemonicParsing="false" onAction="#setAdd" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #045004FF;" text="Update" textFill="WHITE" />
+
+                  <Button layoutX="166.0" layoutY="27.0" mnemonicParsing="false" onAction="#printFeeStatement" prefHeight="32.0" prefWidth="86.0" style="-fx-background-color: #045004;" text="Print" textFill="WHITE" />
+                    </AnchorPane>
+                    <Separator layoutX="375.0" orientation="VERTICAL" prefHeight="653.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="0.0" />
+                    <Button layoutX="26.0" layoutY="27.0" mnemonicParsing="false" onAction="#setAdd" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #045004;" text="Update" textFill="WHITE" />
+                    <Button layoutX="246.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteStudent" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #071c2f;" text="Delete" textFill="WHITE" />
+>>>>>>> 25503719f679310ce578a88899bd64c9c753927e
                 </AnchorPane>
             </SplitPane>
         </center>

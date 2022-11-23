@@ -21,13 +21,13 @@
                </columns>
            </TableView>
            <CheckBox fx:id="approveAll" layoutX="369.0" layoutY="622.0" mnemonicParsing="false" text="Approve all" />
-           <Button layoutX="526.0" layoutY="615.0" mnemonicParsing="false" onAction="#approveUnitsBtnOnclick" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #045004;" text="Approve" textFill="WHITE" />
+           <Button layoutX="526.0" layoutY="615.0" mnemonicParsing="false" onAction="#approveUnitsBtnOnclick" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #071C2FFF;" text="Approve" textFill="WHITE" />
            <Button fx:id="logoutBtn" layoutX="685.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutBtnOnClick" prefHeight="24.0" prefWidth="121.0" style="-fx-background-color: #7d0808;" text="Log-Out" textFill="#fffbfb" />
          <Button fx:id="refreshBtn" layoutX="207.0" layoutY="615.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #045004;" text="Refresh" textFill="WHITE" />
        </AnchorPane>
    </center>
    <left>
-       <AnchorPane prefHeight="900.0" prefWidth="376.0" style="-fx-background-color: #03013E;" BorderPane.alignment="CENTER">
+       <AnchorPane prefHeight="900.0" prefWidth="376.0" style="-fx-background-color: #071c2f;" BorderPane.alignment="CENTER">
            <Label layoutX="186.0" layoutY="75.0" prefHeight="16.0" prefWidth="89.0" text="MENU" textFill="#f8f5f5">
               <font>
                   <Font name="DejaVuMathTeXGyre-Regular" size="20.0" />

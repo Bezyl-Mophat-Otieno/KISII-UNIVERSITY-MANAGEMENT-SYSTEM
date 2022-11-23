@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
 
@@ -77,6 +79,7 @@ public class AdmissionController implements Initializable {
     @FXML
     private TextField fieldSearch;
 
+
     public void setAdd(){
         setAllEnable();
         isNewButtonClicked = true;
@@ -85,11 +88,37 @@ public class AdmissionController implements Initializable {
     //Save button functionality
     public void save() throws SQLException {
         if(isNewButtonClicked){
-            registerStudent();
+         frontEndValidation();
         }
         else if(isEditButtonClicked){
             updateStudent();
+
+
+
         }
+    }
+
+    public void insertIntoFeeTable() throws SQLException {
+        Connection connection = database.getConnection();
+        Statement statement = connection.createStatement();
+        String sqlQuery = "SELECT Cost_Price FROM Courses WHERE Course_ID IN (SELECT Course_ID FROM Student WHERE Std_ID ='"+fieldStdID.getText()+"'"+")";
+        System.out.println(sqlQuery);
+        ResultSet result = statement.executeQuery(sqlQuery);
+        if (result.next()){
+            //Store the fees payable in a variable
+            Double feeAmount = result.getDouble("Cost_Price");
+            Connection connection1 = database.getConnection();
+            Statement statement1 = connection1.createStatement();
+            String sqlQuery1="Insert into `billstatement` values('"+fieldStdID.getText()+"','"+feeAmount+"')";
+            System.out.println(sqlQuery1);
+            int resultInsert = statement.executeUpdate(sqlQuery1);
+            if(resultInsert==1){
+                    informationAlert.setContentText("Fees Structure ready to be collected from the bursar's office");
+                    informationAlert.show();
+            }
+
+        }
+
     }
     //register Student
     public void registerStudent() throws SQLException {
@@ -106,7 +135,9 @@ public class AdmissionController implements Initializable {
             System.out.println(resultInsert);
             System.out.println(result);
             if(result == 1 && resultInsert == 1){
-                informationAlert.setContentText("Student Added Successfully!");
+                insertIntoFeeTable();
+                informationAlert.setContentText("The Student has been registered successfully," +
+                        " He/She should proceed to the bursar's Office to pick the fee Structure");
                 informationAlert.show();
                 clearAll();
             }
@@ -136,6 +167,7 @@ public class AdmissionController implements Initializable {
         int result =  database.getConnection().createStatement().executeUpdate(sqlQuery);
         System.out.println(result);
         if(result == 1){
+            insertIntoFeeTable();
             informationAlert.setContentText("Student Updated Successfully");
             informationAlert.setHeaderText("Success");
             informationAlert.show();
@@ -286,6 +318,69 @@ public class AdmissionController implements Initializable {
                 fieldYearOfStudy.getText().isEmpty() || fieldStatus.getSelectionModel().getSelectedItem() == null ||
                 fieldStatus.getSelectionModel().isEmpty();
 
+    }
+    @FXML
+    Label nameError;
+    @FXML
+    Label idError;
+
+    @FXML
+    Label mailError;
+    @FXML
+    Label yosError;
+
+    public void frontEndValidation() throws SQLException {
+        boolean frontEndErrors;
+        //regex for name field [^a-z]
+        String studentName = fieldStdName.getText();
+        String studentId = fieldStdID.getText();
+        //regex find a match  begining with the following combinations of charcters \bIN
+        Pattern pattern1 = Pattern.compile("^IN");
+        Matcher matcher1 = pattern1.matcher(studentId);
+        boolean matchFound1 = matcher1.find();
+        if(!matchFound1) {
+            idError.setText("Invalid student ID ");
+            frontEndErrors=true;
+        } else {
+            System.out.println("Valid student ID");
+            frontEndErrors=false;
+            //regex find any character that matches a value not within the brackets[^a-z] and white spaces
+            Pattern pattern2 = Pattern.compile("[^a-z\s]", Pattern.CASE_INSENSITIVE);
+            Matcher matcher2 = pattern2.matcher(studentName);
+            boolean matchFound2 = matcher2.find();
+            if(matchFound2) {
+                nameError.setText("Invalid name ");
+                frontEndErrors=true;
+            } else {
+                System.out.println("The name is valid");
+                frontEndErrors=false;
+                // regex that finds @ symbol and .com word in the string [@],"com"
+                Pattern pattern3 = Pattern.compile("[@]|com\\b", Pattern.CASE_INSENSITIVE);
+                Matcher matcher3 = pattern3.matcher(studentName);
+                boolean matchFound3 = matcher3.find();
+                if(!matchFound3) {
+                    mailError.setText("Invalid Email Address");
+                    frontEndErrors=true;
+                } else {
+                    System.out.println("The Email address is valid");
+                    frontEndErrors=false;
+
+                    // regex that ensures the year of study is an int between 1-6
+                    Pattern pattern4 = Pattern.compile("[1-6]", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher4 = pattern4.matcher(fieldYearOfStudy.getText());
+                    boolean matchFound4 = matcher4.find();
+                    if(!matchFound4) {
+                        yosError.setText("Invalid Year of study");
+                        frontEndErrors = true;
+                    } else {
+                        System.out.println("Valid Year of study");
+                        registerStudent();
+                    }
+
+                }
+            }
+
+        }
     }
 
 
