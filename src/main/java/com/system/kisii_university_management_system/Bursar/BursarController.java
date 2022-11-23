@@ -56,7 +56,7 @@ public class BursarController implements Initializable {
     @FXML
     private Button saveBtn;
     @FXML
-    private Button deleteBtn;
+    private Button  cancelBtn;
     @FXML
     TableView<FeeTable> feeTableView;
     @FXML
@@ -229,14 +229,14 @@ public class BursarController implements Initializable {
         fieldStdID.setDisable(false);
         fieldStdFeeAmount.setDisable(false);
         saveBtn.setDisable(false);
-        deleteBtn.setDisable(false);
+        cancelBtn.setDisable(false);
     }
 
     private void setAllDisable() {
         fieldStdID.setDisable(true);
         fieldStdFeeAmount.setDisable(true);
         saveBtn.setDisable(true);
-        deleteBtn.setDisable(true);
+        cancelBtn.setDisable(true);
 
     }
     public void clearAll(){
